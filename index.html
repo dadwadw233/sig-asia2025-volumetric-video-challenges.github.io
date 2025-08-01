@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Volumetric Video Challenges | SIGGRAPH Asia 2025 Workshop</title>
+    <title>1st Volumetric Video Challenge | SIGGRAPH Asia 2025 Workshop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- MathJax for mathematical formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -26,7 +29,7 @@
             100% { background-position: 0% 50%; }
         }
         
-        /* 悬浮效果 */
+        /* Hover effect */
         .hover-lift {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -36,7 +39,7 @@
             box-shadow: 0 15px 35px rgba(26, 54, 93, 0.15);
         }
         
-        /* 导航栏链接效果 */
+        /* Navigation link effects */
         nav a {
             position: relative;
             transition: color 0.3s ease;
@@ -61,7 +64,7 @@
             color: #246fb2;
         }
         
-        /* 标题动画 */
+        /* Title animation */
         .fade-in-up {
             animation: fadeInUp 1s ease-out;
         }
@@ -77,7 +80,7 @@
             }
         }
         
-        /* 章节标题样式 */
+        /* Section title styles */
         h2 {
             font-size: 2.25rem;
             font-weight: 700;
@@ -98,7 +101,7 @@
             background: #246fb2;
         }
         
-        /* 卡片样式 */
+        /* Card styles */
         .academic-card {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
@@ -106,7 +109,7 @@
             box-shadow: 0 4px 6px rgba(26, 54, 93, 0.05);
         }
         
-        /* 头像悬浮效果 */
+        /* Avatar hover effect */
         .avatar-hover {
             transition: all 0.3s ease;
             border: 3px solid transparent;
@@ -118,20 +121,20 @@
             box-shadow: 0 8px 25px rgba(36, 111, 178, 0.25);
         }
         
-        /* 表格行悬浮效果 */
+        /* Table row hover effect */
         .table-row:hover {
             background: linear-gradient(90deg, #f7fafc, #edf2f7);
             transform: translateX(3px);
             transition: all 0.3s ease;
         }
         
-        /* SIGGRAPH主题色 */
+        /* SIGGRAPH theme colors */
         .siggraph-blue { color: #246fb2; }
         .siggraph-dark { color: #1a365d; }
         .siggraph-bg-blue { background-color: #246fb2; }
         .siggraph-bg-dark { background-color: #1a365d; }
         
-        /* Logo容器 */
+        /* Logo container */
         .logo-container {
             display: flex;
             align-items: center;
@@ -141,11 +144,22 @@
             height: 40px;
             width: auto;
         }
+
+        /* Code block styles */
+        .code-block {
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <!-- 头部和导航栏 -->
+    <!-- Header and Navigation -->
     <header class="bg-white/95 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-gray-200">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="logo-container">
@@ -201,10 +215,13 @@
             <nav class="hidden md:flex space-x-8 text-gray-600 font-medium">
                 <a href="#overview">Overview</a>
                 <a href="#challenges">Challenges</a>
+                <a href="#dataset">Dataset</a>
+                <a href="#evaluation">Evaluation</a>
+                <a href="#dates">Important Dates</a>
+                <a href="#awards">Awards</a>
                 <a href="#speakers">Speakers</a>
                 <a href="#schedule">Schedule</a>
                 <a href="#organizers">Organizers</a>
-                <a href="#dates">Dates</a>
             </nav>
             <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none p-2 rounded-lg hover:bg-gray-100">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -215,218 +232,56 @@
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-white border-t">
             <a href="#overview" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Overview</a>
             <a href="#challenges" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Challenges</a>
+            <a href="#dataset" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Dataset</a>
+            <a href="#evaluation" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Evaluation</a>
+            <a href="#dates" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Important Dates</a>
+            <a href="#awards" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Awards</a>
             <a href="#speakers" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Speakers</a>
             <a href="#schedule" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Schedule</a>
             <a href="#organizers" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Organizers</a>
-            <a href="#dates" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Dates</a>
         </div>
     </header>
 
-    <!-- 主体内容 -->
+    <!-- Main Content -->
     <main class="container mx-auto px-6 py-12">
         
-        <!-- 网站标题 -->
+        <!-- Website Title -->
         <section class="text-center mb-20 fade-in-up">
             <div class="siggraph-bg text-white rounded-2xl p-12 mb-8">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">Volumetric Video Challenges</h1>
-                <p class="text-xl md:text-2xl font-light opacity-90 mb-4">on Compression and Sparse-View</p>
-                <div class="inline-block bg-white/20 backdrop-blur-sm rounded-full px-6 py-3">
-                    <p class="text-lg font-medium">SIGGRAPH Asia 2025 Workshop</p>
-                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">1st Volumetric Video Challenge</h1>
+                <p class="text-xl md:text-2xl font-light opacity-90 mb-4">@SIGGRAPH Asia 2025 Volumetric Video Workshop</p>
             </div>
         </section>
 
-        <!-- 概述 -->
+        <!-- Overview -->
         <section id="overview" class="mb-16">
             <h2>Overview</h2>
             <div class="academic-card rounded-2xl p-8 hover-lift">
                 <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
-                    <p class="text-xl font-medium siggraph-dark mb-6">The goal of this challenge is to accelerate the transition of volumetric video technology from laboratory prototypes to robust, production- and consumer-ready systems, enabling breakthroughs in immersive interactive experiences.</p>
-                    <p>Real-time, free-viewpoint playback of dynamic 3D humans and scenes is foundational for a wide spectrum of AR/VR applications, including virtual filmmaking, remote collaborative telepresence, gaming, and digital twins.</p>
-                    <p class="font-semibold siggraph-dark">This challenge addresses two core bottlenecks:</p>
+                    <p class="text-xl font-medium siggraph-dark mb-6">
+                        The goal of this challenge workshop is to accelerate the transition of volumetric video technology from laboratory prototypes to robust, production- and consumer-ready systems, enabling breakthroughs in immersive interactive experiences.
+                    </p>
+                    <p>
+                        The challenge is designed to address two core bottlenecks hindering the scalability of volumetric video:
+                    </p>
                     <div class="grid md:grid-cols-2 gap-6 mt-6">
                         <div class="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-600">
-                            <h4 class="font-bold siggraph-dark mb-2">1. Compression</h4>
-                            <p class="text-gray-700">Given reconstruction quality metrics (e.g., PSNR, SSIM, perceptual similarity), minimize file size. This focuses on balancing storage efficiency and playback performance for practical deployment.</p>
+                            <h4 class="font-bold siggraph-dark mb-2">Compression Track</h4>
+                            <p class="text-gray-700">Focuses on balancing storage efficiency and playback performance for practical deployment.</p>
                         </div>
                         <div class="bg-slate-50 p-6 rounded-xl border-l-4 border-slate-600">
-                            <h4 class="font-bold siggraph-dark mb-2">2. Sparse-View Reconstruction</h4>
-                            <p class="text-gray-700">Accurately reconstruct dynamic 3D humans from a minimal number of camera viewpoints (8 & 24 cameras), reducing hardware costs and simplifying capture setups.</p>
+                            <h4 class="font-bold siggraph-dark mb-2">Sparse-View Track</h4>
+                            <p class="text-gray-700">Focuses on accurately reconstructing dynamic 3D humans from a minimal number of camera viewpoints, reducing hardware costs and simplifying capture setups for consumer and industrial use cases.</p>
                         </div>
                     </div>
-                    <p class="italic text-gray-600 bg-gray-50 p-4 rounded-lg border-l-4 border-gray-300">Our challenge provides a unique opportunity for fostering cross-disciplinary discussion between computer vision, computer graphics, and AR/VR practitioners, uniting expertise in 3D reconstruction, generative AI, and immersive media systems.</p>
+                    <p class="italic text-gray-600 bg-gray-50 p-4 rounded-lg border-l-4 border-gray-300">
+                        Our challenge will provide a unique opportunity for fostering cross-disciplinary discussion between computer vision, computer graphics, and AR/VR practitioners, uniting expertise in 3D reconstruction, generative AI, and immersive media systems.
+                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- 挑战赛 -->
-        <section id="challenges" class="mb-16">
-            <h2>Challenges</h2>
-            <p class="mb-8 text-xl text-gray-700 text-center">We are excited to announce the following tracks for SIGGRAPH Asia 2025:</p>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="academic-card p-8 rounded-2xl hover-lift border-l-4 border-blue-600">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 siggraph-bg-blue rounded-lg flex items-center justify-center mr-4">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold siggraph-dark">Compression Track</h3>
-                    </div>
-                    <p class="text-gray-600 mb-6 text-lg">Focuses on minimizing file size while maintaining high reconstruction quality metrics and optimal playback performance.</p>
-                    <a href="#top" target="_blank" class="inline-flex items-center siggraph-blue hover:text-blue-800 font-semibold text-lg group">
-                        Learn More 
-                        <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                        </svg>
-                    </a>
-                </div>
-                <div class="academic-card p-8 rounded-2xl hover-lift border-l-4 border-slate-600">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 siggraph-bg-dark rounded-lg flex items-center justify-center mr-4">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold siggraph-dark">Sparse-View Reconstruction</h3>
-                    </div>
-                    <p class="text-gray-600 mb-6 text-lg">Aims to accurately reconstruct dynamic 3D humans from a minimal number of camera views (8 & 24 cameras).</p>
-                    <a href="#top" target="_blank" class="inline-flex items-center siggraph-blue hover:text-blue-800 font-semibold text-lg group">
-                        Learn More 
-                        <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 邀请演讲人 -->
-        <section id="speakers" class="mb-16">
-            <h2>Invited Speakers</h2>
-            <!-- <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <img src="https://www.cs.cornell.edu/~wenqixian/images/avatar.jpg" 
-                         alt="Wenqi Xian" 
-                         class="w-32 h-32 rounded-full mx-auto mb-4 avatar-hover object-cover"
-                         onerror="this.src='https://placehold.co/200x200/e2e8f0/333?text=Wenqi+Xian'">
-                    <h3 class="text-xl font-bold siggraph-dark">Wenqi Xian</h3>
-                    <p class="text-gray-600 mb-3">Cornell University</p>
-                    <a href="https://www.cs.cornell.edu/~wenqixian/" target="_blank" 
-                       class="inline-flex items-center siggraph-blue hover:text-blue-800 font-medium">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
-                        </svg>
-                        Personal Page
-                    </a>
-                </div> -->
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <div class="w-32 h-32 rounded-full mx-auto mb-4 avatar-hover bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                        <span class="text-gray-500 font-medium">TBD</span>
-                    </div>
-                    <h3 class="text-xl font-bold siggraph-dark">To Be Announced</h3>
-                    <p class="text-gray-600 mb-3">Affiliation TBD</p>
-                    <span class="text-gray-400">Coming Soon</span>
-                </div>
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <div class="w-32 h-32 rounded-full mx-auto mb-4 avatar-hover bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                        <span class="text-gray-500 font-medium">TBD</span>
-                    </div>
-                    <h3 class="text-xl font-bold siggraph-dark">To Be Announced</h3>
-                    <p class="text-gray-600 mb-3">Affiliation TBD</p>
-                    <span class="text-gray-400">Coming Soon</span>
-                </div>
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <div class="w-32 h-32 rounded-full mx-auto mb-4 avatar-hover bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                        <span class="text-gray-500 font-medium">TBD</span>
-                    </div>
-                    <h3 class="text-xl font-bold siggraph-dark">To Be Announced</h3>
-                    <p class="text-gray-600 mb-3">Affiliation TBD</p>
-                    <span class="text-gray-400">Coming Soon</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- 日程安排 -->
-        <section id="schedule" class="mb-16">
-            <h2>Schedule</h2>
-            <div class="academic-card rounded-2xl overflow-hidden hover-lift">
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead class="siggraph-bg-blue text-white">
-                            <tr>
-                                <th class="p-6 font-bold text-left text-lg">Times (HKT)</th>
-                                <th class="p-6 font-bold text-left text-lg">Session</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr class="table-row">
-                                <td class="p-6 font-semibold siggraph-blue">13:00 - 13:30</td>
-                                <td class="p-6 text-gray-700">Welcome Remarks and Challenge Results</td>
-                            </tr>
-                            <tr class="table-row">
-                                <td class="p-6 font-semibold siggraph-blue">13:30 - 15:00</td>
-                                <td class="p-6 text-gray-700">Winner Teams Presentation</td>
-                            </tr>
-                            <tr class="table-row">
-                                <td class="p-6 font-semibold siggraph-blue">15:00 - 15:30</td>
-                                <td class="p-6 text-gray-700">Coffee Break ☕</td>
-                            </tr>
-                            <tr class="table-row">
-                                <td class="p-6 font-semibold siggraph-blue">15:30 - 17:00</td>
-                                <td class="p-6 text-gray-700">Invited Speaker Presentations</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- 组织者 -->
-        <section id="organizers" class="mb-16">
-            <h2>Organizers</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <img src="https://www.xzhou.me/images/portrait.jpg" 
-                         alt="Xiaowei Zhou" 
-                         class="w-24 h-24 rounded-full mx-auto mb-3 avatar-hover object-cover"
-                         onerror="this.src='https://placehold.co/150x150/e2e8f0/333?text=XZ'">
-                    <h3 class="text-lg font-bold siggraph-dark">Xiaowei Zhou</h3>
-                    <p class="text-sm text-gray-600 mb-2">Zhejiang University</p>
-                    <a href="https://www.xzhou.me/" target="_blank" class="siggraph-blue hover:text-blue-800 text-sm font-medium">Personal Page</a>
-                </div>
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <img src="https://csse.szu.edu.cn/staff/ruizhenhu/index_files/ruizhen.jpeg" 
-                         alt="Ruizhen Hu" 
-                         class="w-24 h-24 rounded-full mx-auto mb-3 avatar-hover object-cover"
-                         onerror="this.src='https://placehold.co/150x150/e2e8f0/333?text=RH'">
-                    <h3 class="text-lg font-bold siggraph-dark">Ruizhen Hu</h3>
-                    <p class="text-sm text-gray-600 mb-2">Shenzhen University</p>
-                    <a href="https://csse.szu.edu.cn/staff/ruizhenhu/" target="_blank" class="siggraph-blue hover:text-blue-800 text-sm font-medium">Personal Page</a>
-                </div>
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <img src="https://pengsida.net/images/pengsida_v5.png" 
-                         alt="Sida Peng" 
-                         class="w-24 h-24 rounded-full mx-auto mb-3 avatar-hover object-cover"
-                         onerror="this.src='https://placehold.co/150x150/e2e8f0/333?text=SP'">
-                    <h3 class="text-lg font-bold siggraph-dark">Sida Peng</h3>
-                    <p class="text-sm text-gray-600 mb-2">Zhejiang University</p>
-                    <a href="https://pengsida.net/" target="_blank" class="siggraph-blue hover:text-blue-800 text-sm font-medium">Personal Page</a>
-                </div>
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <img src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=dYLKTPUAAAAJ&citpid=3" 
-                         alt="Jiaming Sun" 
-                         class="w-24 h-24 rounded-full mx-auto mb-3 avatar-hover object-cover"
-                         onerror="this.src='https://placehold.co/150x150/e2e8f0/333?text=JS'">
-                    <h3 class="text-lg font-bold siggraph-dark">Jiaming Sun</h3>
-                    <p class="text-sm text-gray-600 mb-2">Zhejiang University</p>
-                    <a href="https://jiamingsun.ml/" target="_blank" class="siggraph-blue hover:text-blue-800 text-sm font-medium">Personal Page</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 重要日期 -->
+        <!-- Important Dates -->
         <section id="dates" class="mb-16">
             <h2>Important Dates</h2>
             <div class="academic-card rounded-2xl p-8 hover-lift">
@@ -437,8 +292,8 @@
                                 <span class="text-white font-bold">1</span>
                             </div>
                             <div>
-                                <p class="font-bold siggraph-dark">Challenge Registration</p>
-                                <p class="text-gray-600">To be announced</p>
+                                <p class="font-bold siggraph-dark">Registration Opens</p>
+                                <p class="text-gray-600">07/08/2025</p>
                             </div>
                         </div>
                         <div class="flex items-center p-4 bg-green-50 rounded-lg border-l-4 border-green-600">
@@ -446,28 +301,37 @@
                                 <span class="text-white font-bold">2</span>
                             </div>
                             <div>
-                                <p class="font-bold siggraph-dark">Dataset Release</p>
-                                <p class="text-gray-600">To be announced</p>
+                                <p class="font-bold siggraph-dark">Dataset Releases</p>
+                                <p class="text-gray-600">15/08/2025</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="space-y-4">
                         <div class="flex items-center p-4 bg-orange-50 rounded-lg border-l-4 border-orange-600">
                             <div class="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center mr-4">
                                 <span class="text-white font-bold">3</span>
                             </div>
                             <div>
                                 <p class="font-bold siggraph-dark">Submission Deadline</p>
-                                <p class="text-gray-600">To be announced</p>
+                                <p class="text-gray-600">01/11/2025</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center p-4 bg-purple-50 rounded-lg border-l-4 border-purple-600">
+                            <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-white font-bold">4</span>
+                            </div>
+                            <div>
+                                <p class="font-bold siggraph-dark">Challenge Result</p>
+                                <p class="text-gray-600">15/11/2025</p>
                             </div>
                         </div>
                         <div class="flex items-center p-4 bg-slate-50 rounded-lg border-l-4 border-slate-600">
                             <div class="w-10 h-10 siggraph-bg-dark rounded-full flex items-center justify-center mr-4">
-                                <span class="text-white font-bold">4</span>
+                                <span class="text-white font-bold">5</span>
                             </div>
                             <div>
-                                <p class="font-bold siggraph-dark">Winner Announcement</p>
-                                <p class="text-gray-600">To be announced</p>
+                                <p class="font-bold siggraph-dark">Award & Workshop</p>
+                                <p class="text-gray-600">Volumetric Video Workshop @ SIGGRAPH Asia 2025</p>
                             </div>
                         </div>
                     </div>
@@ -475,7 +339,409 @@
             </div>
         </section>
 
-        <!-- 致谢 -->
+        <!-- Challenges -->
+        <section id="challenges" class="mb-16">
+            <h2>Challenges</h2>
+            <p class="mb-8 text-xl text-gray-700 text-center">The challenge focuses on boosting novel compression and sparse-view reconstruction techniques for volumetric videos.</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="academic-card p-8 rounded-2xl hover-lift border-l-4 border-blue-600">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 siggraph-bg-blue rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold siggraph-dark">Compression Track</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6 text-lg">Given reconstruction quality metrics, minimize file size while maintaining high quality.</p>
+                    <!-- TODO: Add link when available -->
+                    <span class="text-gray-400">Download link: TBD</span>
+                </div>
+                <div class="academic-card p-8 rounded-2xl hover-lift border-l-4 border-slate-600">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 siggraph-bg-dark rounded-lg flex items-center justify-center mr-4">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold siggraph-dark">Sparse-View Track</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6 text-lg">Accurately reconstruct dynamic 3D humans from 8 & 24 camera views.</p>
+                    <!-- TODO: Add link when available -->
+                    <span class="text-gray-400">Download link: TBD</span>
+                </div>
+            </div>
+
+            <!-- Registration Button -->
+            <div class="text-center">
+                <a href="https://forms.gle/rJtwoSPoqeHbyVW16" target="_blank" class="inline-block siggraph-bg-blue text-white px-8 py-3 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity">
+                    Register for the Challenge
+                </a>
+            </div>
+        </section>
+
+        <!-- Dataset -->
+        <section id="dataset" class="mb-16">
+            <h2>Dataset</h2>
+            <div class="academic-card rounded-2xl p-8 hover-lift">
+                <p class="text-lg text-gray-700 mb-6">The dataset contains diverse dynamic human subjects captured in high-fidelity, featuring:</p>
+                <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
+                    <li>Front-facing human captures</li>
+                    <li>Multi-view 4K video sequences at 60FPS</li>
+                    <li>Accurate camera intrinsic/extrinsic parameters and time synchronization</li>
+                </ul>
+                
+                <p class="text-lg font-semibold siggraph-dark mb-4">Dataset Structure:</p>
+                <div class="code-block">
+                    <pre>
+.
+├── intri.yml # Camera intrinsics for training views
+├── extri.yml # Camera extrinsics for training views
+├── novel_intri.yml # Camera intrinsics for novel views
+├── novel_extri.yml # Camera extrinsics for novel views
+├── images # Multi-view images
+│   ├── 00 # Camera 0 (may be up to 48 views for testing, 60 for validation)
+│   │   ├── 000000.jpg
+│   │   └── ...
+│   └── ...
+├── masks # Foreground masks
+│   ├── 00 # up to 60 views
+│   │   ├── 000000.jpg
+│   │   └── ...
+│   └── ...
+├── pcds_fg # Foreground point clouds for reference/evaluation
+│   ├── 000000.ply
+│   └── ...
+├── pcds_bg # Background point clouds for reference
+│   └── 000000.ply</pre>
+                </div>
+                
+                <p class="text-gray-600 mt-6">We will provide an official Python script for data parsing and visualization.</p>
+                <p class="text-gray-600 mt-2 font-medium">All data are provided for research use only.</p>
+            </div>
+        </section>
+
+        <!-- Evaluation -->
+        <section id="evaluation" class="mb-16">
+            <h2>Evaluation</h2>
+            <div class="academic-card rounded-2xl p-8 hover-lift">
+                <p class="text-lg text-gray-700 mb-6">All evaluations will be conducted on a Linux workstation with an NVIDIA RTX4090 GPU.</p>
+                <p class="text-lg text-gray-700 mb-4">For novel-view reconstruction quality, we use PSNR, SSIM, and LPIPS on the test set.</p>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-bold siggraph-dark text-xl mb-4">Compression Track:</h4>
+                        <p class="text-gray-700 mb-4">Each metric is computed as a weighted sum of foreground-only and full-image modes:</p>
+                        <p class="bg-gray-100 p-4 rounded-lg font-mono text-center mb-4">
+                            PSNR = 0.5 × PSNR<sub>fg</sub> + 0.5 × PSNR<sub>full</sub>
+                        </p>
+                        <p class="text-gray-700 mb-4">The foreground mask is defined by the provided binary masks.</p>
+                        <p class="text-gray-700 mb-4">
+                            We follow the ranking method of 
+                            <a href="https://w-m.github.io/3dgs-compression-survey/" class="text-blue-600 underline hover:text-blue-800" target="_blank" rel="noopener">
+                              3DGS.zip
+                            </a>,
+                            computing for all sequences:
+                          </p>
+                        <p class="bg-gray-100 p-4 rounded-lg font-mono text-sm">
+                            Dataset rank = rank(PSNR)/6 + rank(SSIM)/6 + rank(LPIPS)/6 + rank(Size[MB])/2
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold siggraph-dark text-xl mb-4">Sparse-View Track:</h4>
+                        <p class="text-gray-700 mb-4">Each metric is computed on foreground-only images. The foreground mask is defined by the provided binary masks.</p>
+                        <p class="text-gray-700 mb-4">Ranking for all sequences:</p>
+                        <p class="bg-gray-100 p-4 rounded-lg font-mono">
+                            Dataset rank = rank(PSNR)/3 + rank(SSIM)/3 + rank(LPIPS)/3
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Track Details -->
+        <section class="mb-16">
+            <div class="grid md:grid-cols-1 gap-8">
+                <!-- Compression Track Details -->
+                <div class="academic-card rounded-2xl p-8 hover-lift">
+                    <h3 class="text-2xl font-bold siggraph-dark mb-6">Compression Track</h3>
+                    
+                    <h4 class="font-bold text-xl mb-4">Introduction</h4>
+                    <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
+                        <li><strong>Validation set:</strong> Two sequences
+                            <ul class="list-disc list-inside ml-6 mt-2">
+                                <li>Full 60-view images and masks</li>
+                                <li>Camera intrinsic and extrinsic parameters for all 60 views</li>
+                            </ul>
+                        </li>
+                        <li><strong>Testing set:</strong> Five sequences
+                            <ul class="list-disc list-inside ml-6 mt-2">
+                                <li>48-view images and masks</li>
+                                <li>Camera intrinsic and extrinsic parameters for all 60 views</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="text-gray-700 mb-6">The remaining camera views (i.e., not included in the 48 training views) are reserved exclusively for evaluation as novel views. Their images and masks will not be accessible to participants.</p>
+                    <p class="text-gray-700 mb-6">
+                        We will provide our self-implemented 
+                        <a href="https://zju3dv.github.io/freetimegs/" class="text-blue-600 underline hover:text-blue-800" target="_blank" rel="noopener">
+                          FreeTimeGS
+                        </a>
+                        baseline model along with rendering scripts for each sequence. Participants are free to use our baseline as a starting point (including experimenting with post-processing such as linear/non-linear quantization or pruning), or to develop and submit any novel compressed representations and methods. There is no restriction on the compression approach, and innovative solutions are encouraged.
+                      </p>
+                    
+                    <h4 class="font-bold text-xl mb-4">Submission Materials</h4>
+                    <ol class="list-decimal list-inside text-gray-700 space-y-4">
+                        <li>A short technical report (see Guidelines)</li>
+                        <li><strong>Rendering results:</strong>
+                            <ul class="list-disc list-inside ml-6 mt-2">
+                                <li>A zip file containing full-size novel-view rendered images.</li>
+                                <li>Directory structure should be:
+                                    <div class="code-block mt-2">
+                                        <pre>
+.
+├── 00
+│   ├── 000000.png
+│   ├── ...
+│   ├── 000000.jpg
+├── 01
+│   ├── 000000.jpg
+│   ├── ...
+│   ├── 000000.jpg
+...</pre>
+                                    </div>
+                                </li>
+                                <li>Each top-level folder corresponds to a test sequence.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Compressed model & Rendering scripts:</strong>
+                            <ul class="list-disc list-inside ml-6 mt-2">
+                                <li>A zip file containing:
+                                    <ul class="list-disc list-inside ml-6 mt-2">
+                                        <li>Your Conda environment .yml file</li>
+                                        <li>Your compressed models and rendering scripts</li>
+                                    </ul>
+                                </li>
+                                <li>Your rendering code should support the following evaluation command:
+                                    <div class="code-block mt-2">
+                                        <pre>
+conda env create -f [YOUR_ENV_FILE].yml
+conda activate [YOUR_ENV_NAME]
+python3 render.py --model [YOUR_MODEL] --intri novel_intri.yml --extri novel_extri.yml</pre>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Sparse-View Track Details -->
+                <div class="academic-card rounded-2xl p-8 hover-lift">
+                    <h3 class="text-2xl font-bold siggraph-dark mb-6">Sparse-View Track</h3>
+                    
+                    <h4 class="font-bold text-xl mb-4">Introduction</h4>
+                    <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
+                        <li><strong>Validation set:</strong> Two sequences
+                            <ul class="list-disc list-inside ml-6 mt-2">
+                                <li>Full 60-view images and masks</li>
+                                <li>Camera intrinsic and extrinsic parameters for all 60 views</li>
+                            </ul>
+                        </li>
+                        <li><strong>Testing set:</strong> Five 8-view sequences & Five 24-view sequences
+                            <ul class="list-disc list-inside ml-6 mt-2">
+                                <li>5 sequences under the 8-view setting (i.e., only 8 selected camera views' images and masks are provided per sequence)</li>
+                                <li>5 sequences under the 24-view setting (i.e., only 24 selected camera views' images and masks are provided per sequence)</li>
+                                <li>Camera intrinsic and extrinsic parameters for all 60 views are available for both settings</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="text-gray-700 mb-6">The remaining camera views (i.e., not included in the 8/24 training views) are reserved exclusively for evaluation as novel views. Their images and masks will not be accessible to participants.</p>
+                    
+                    <h4 class="font-bold text-xl mb-4">Submission Materials</h4>
+                    <p class="text-gray-700 mb-4">The submission materials follow the same format as the Compression Track.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guidelines -->
+        <section class="mb-16">
+            <h2>Guidelines</h2>
+            <div class="academic-card rounded-2xl p-8 hover-lift">
+                <h3 class="text-xl font-bold siggraph-dark mb-4">Registration:</h3>
+                <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
+                    <li>Registration link: <a href="https://forms.gle/rJtwoSPoqeHbyVW16" target="_blank" class="siggraph-blue hover:underline">https://forms.gle/rJtwoSPoqeHbyVW16</a></li>
+                    <li>Each team is permitted to register only once for the competition.</li>
+                    <li>The registered Team Name will serve as the official identifier for all evaluation purposes.</li>
+                    <li>Please ensure that all information provided during registration is accurate and up-to-date.</li>
+                </ul>
+
+                <h3 class="text-xl font-bold siggraph-dark mb-4">Submission:</h3>
+                <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
+                    <!-- TODO: Add submission link when available -->
+                    <li>Please upload your submission via this link: <span class="text-gray-400">TBD</span></li>
+                    <li>Enter your Team Name and upload the required files.</li>
+                    <li>Please note that each team is allowed a maximum of three submissions per track. If more than three submissions are made, only the third submission will be considered for evaluation.</li>
+                </ul>
+
+                <h3 class="text-xl font-bold siggraph-dark mb-4">Technical Report:</h3>
+                <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
+                    <li><strong>Page Limit:</strong> The main content of each report must not exceed 4 pages. There is no page limit for references or appendices.</li>
+                    <li><strong>Formatting:</strong>
+                        <ul class="list-disc list-inside ml-6 mt-2">
+                            <li>It is highly recommended to use the SIGGRAPH Asia Technical Communications template.</li>
+                            <li>Submissions should be in PDF format.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Archival Status:</strong> All accepted reports are non-archival.</li>
+                </ul>
+
+                <h3 class="text-xl font-bold siggraph-dark mb-4">File Naming:</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li>Technical report: TeamName.pdf</li>
+                    <li>Rendering results: TeamName.zip</li>
+                    <li>Model & Scripts: TeamName_Model.zip</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Awards -->
+        <section id="awards" class="mb-16">
+            <h2>Awards</h2>
+            <div class="academic-card rounded-2xl p-8 hover-lift text-center">
+                <p class="text-xl text-gray-700 mb-8">This challenge features two prestigious prizes for each track:</p>
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-yellow-50 p-8 rounded-xl border-2 border-yellow-400">
+                        <h3 class="text-3xl font-bold text-yellow-600 mb-2">First Prize</h3>
+                        <p class="text-5xl font-bold siggraph-dark">$2,500</p>
+                    </div>
+                    <div class="bg-gray-100 p-8 rounded-xl border-2 border-gray-400">
+                        <h3 class="text-3xl font-bold text-gray-600 mb-2">Second Prize</h3>
+                        <p class="text-5xl font-bold siggraph-dark">$1,500</p>
+                    </div>
+                </div>
+                <p class="text-lg text-gray-700 mb-4">Winning teams will be invited to present their projects at the workshop and receive their awards on stage.</p>
+                <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                    <p class="text-red-700 font-semibold">IMPORTANT: Winning teams are required to send at least one member to register for either the "Full Access Supporter" or "Full Access" pass of SIGGRAPH Asia 2025; otherwise, the award will be deemed invalid.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule -->
+        <section id="schedule" class="mb-16">
+            <h2>Schedule</h2>
+            <div class="academic-card rounded-2xl overflow-hidden hover-lift">
+                <!-- TODO: Add specific date when available -->
+                <p class="text-gray-600 p-6 pb-0">The workshop will take place on <span class="text-gray-400">TBD</span>.</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="siggraph-bg-blue text-white">
+                            <tr>
+                                <th class="p-6 font-bold text-left text-lg">Times (HKT)</th>
+                                <th class="p-6 font-bold text-left text-lg">Event</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="table-row">
+                                <td class="p-6 font-semibold siggraph-blue">13:00-13:30</td>
+                                <td class="p-6 text-gray-700">Welcome Remarks and Challenge Results</td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="p-6 font-semibold siggraph-blue">13:30-15:00</td>
+                                <td class="p-6 text-gray-700">Winner Teams Presentation</td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="p-6 font-semibold siggraph-blue">15:00-15:30</td>
+                                <td class="p-6 text-gray-700">Coffee Break</td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="p-6 font-semibold siggraph-blue">15:30-17:00</td>
+                                <td class="p-6 text-gray-700">Invited Speaker Presentations</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Keynote Speakers -->
+        <section id="speakers" class="mb-16">
+            <h2>Keynote Speakers</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- TODO: Add speaker information when available -->
+                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-4 avatar-hover bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                        <span class="text-gray-500 font-medium">TBD</span>
+                    </div>
+                    <h3 class="text-xl font-bold siggraph-dark">TBD</h3>
+                    <p class="text-gray-600 mb-3">TBD</p>
+                </div>
+                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-4 avatar-hover bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                        <span class="text-gray-500 font-medium">TBD</span>
+                    </div>
+                    <h3 class="text-xl font-bold siggraph-dark">TBD</h3>
+                    <p class="text-gray-600 mb-3">TBD</p>
+                </div>
+                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-4 avatar-hover bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                        <span class="text-gray-500 font-medium">TBD</span>
+                    </div>
+                    <h3 class="text-xl font-bold siggraph-dark">TBD</h3>
+                    <p class="text-gray-600 mb-3">TBD</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Organizers -->
+        <section id="organizers" class="mb-16">
+            <h2>Organizers</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
+                    <img src="https://www.xzhou.me/images/portrait.jpg" 
+                         alt="Xiaowei Zhou" 
+                         class="w-24 h-24 rounded-full mx-auto mb-3 avatar-hover object-cover">
+                    <h3 class="text-lg font-bold siggraph-dark">Xiaowei Zhou</h3>
+                    <p class="text-sm text-gray-600 mb-2">Zhejiang University</p>
+                    <a href="https://www.xzhou.me/" target="_blank" class="siggraph-blue hover:text-blue-800 text-sm font-medium">Personal Page</a>
+                </div>
+                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
+                    <img src="https://csse.szu.edu.cn/staff/ruizhenhu/index_files/ruizhen.jpeg" 
+                         alt="Ruizhen Hu" 
+                         class="w-24 h-24 rounded-full mx-auto mb-3 avatar-hover object-cover">
+                    <h3 class="text-lg font-bold siggraph-dark">Ruizhen Hu</h3>
+                    <p class="text-sm text-gray-600 mb-2">Shenzhen University</p>
+                    <a href="https://csse.szu.edu.cn/staff/ruizhenhu/" target="_blank" class="siggraph-blue hover:text-blue-800 text-sm font-medium">Personal Page</a>
+                </div>
+                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
+                    <img src="https://pengsida.net/images/pengsida_v5.png" 
+                         alt="Sida Peng" 
+                         class="w-24 h-24 rounded-full mx-auto mb-3 avatar-hover object-cover">
+                    <h3 class="text-lg font-bold siggraph-dark">Sida Peng</h3>
+                    <p class="text-sm text-gray-600 mb-2">Zhejiang University</p>
+                    <a href="https://pengsida.net/" target="_blank" class="siggraph-blue hover:text-blue-800 text-sm font-medium">Personal Page</a>
+                </div>
+                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
+                    <img src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=dYLKTPUAAAAJ&citpid=3" 
+                         alt="Jiaming Sun" 
+                         class="w-24 h-24 rounded-full mx-auto mb-3 avatar-hover object-cover">
+                    <h3 class="text-lg font-bold siggraph-dark">Jiaming Sun</h3>
+                    <p class="text-sm text-gray-600 mb-2">4DV.ai</p>
+                    <a href="https://jiamingsun.me/" target="_blank" class="siggraph-blue hover:text-blue-800 text-sm font-medium">Personal Page</a>
+                </div>
+                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
+                    <img src="https://placehold.co/150x150/e2e8f0/333?text=ZY" 
+                         alt="Zhiyuan Yu" 
+                         class="w-24 h-24 rounded-full mx-auto mb-3 avatar-hover object-cover">
+                    <h3 class="text-lg font-bold siggraph-dark">Zhiyuan Yu</h3>
+                    <p class="text-sm text-gray-600 mb-2">Zhejiang University</p>
+                    <a href="https://fishfishson.github.io/" target="_blank" class="siggraph-blue hover:text-blue-800 text-sm font-medium">Personal Page</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Acknowledgements -->
         <section id="acknowledgements" class="text-center mb-12">
             <h2>Acknowledgements</h2>
             <div class="academic-card rounded-2xl p-8 hover-lift">
@@ -500,16 +766,30 @@
                         <span class="font-semibold text-lg text-gray-700">4DV.ai</span>
                     </a>
                 </div>
+                <p class="text-gray-600 mt-8">
+                    We also thank 
+                    <a href="https://yuanhongyu.xyz" class="text-blue-600 underline hover:text-blue-800" target="_blank" rel="noopener">
+                      Yuanhong Yu
+                    </a>
+                    for his valuable contribution to the website.
+                  </p>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="text-center mb-12">
+            <h2>Contact</h2>
+            <div class="academic-card rounded-2xl p-8 hover-lift">
+                <p class="text-lg text-gray-700">To contact the organizers please use <a href="mailto:siggraphasiavvc@gmail.com" class="siggraph-blue hover:underline">siggraphasiavvc@gmail.com</a></p>
             </div>
         </section>
 
     </main>
 
-    <!-- 页脚 -->
+    <!-- Footer -->
     <footer class="bg-white/95 backdrop-blur-md mt-12 py-8 border-t border-gray-200">
         <div class="container mx-auto px-6 text-center">
             <div class="flex justify-center items-center space-x-4 mb-4">
-
                 <span class="text-xl font-bold siggraph-dark">SIGGRAPH Asia 2025 Workshop</span>
             </div>
             <p class="text-gray-500">&copy; 2025 SIGGRAPH Asia Workshop Organizers. All rights reserved.</p>
@@ -517,6 +797,7 @@
     </footer>
 
     <script>
+        // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
 
@@ -531,7 +812,7 @@
             });
         }
 
-        // 添加滚动动画效果
+        // Scroll animation effects
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'

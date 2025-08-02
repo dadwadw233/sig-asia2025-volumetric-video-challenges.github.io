@@ -7,42 +7,58 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <!-- MathJax for mathematical formulas -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             scroll-behavior: smooth;
+            background-color: #fafafa;
         }
         
-        .siggraph-bg {
-            background: linear-gradient(135deg, #1a365d 0%, #2a4365 25%, #1a365d 50%, #2a4365 75%, #1a365d 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 20s ease infinite;
+        .mono-font {
+            font-family: 'JetBrains Mono', monospace;
         }
         
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Hero gradient */
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
         }
         
-        /* Hover effect */
-        .hover-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
         
-        .hover-lift:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(26, 54, 93, 0.15);
+        /* Card effects */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+            transition: all 0.3s ease;
         }
         
-        /* Navigation link effects */
+        .glass-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.12);
+        }
+        
+        /* Navigation styling */
         nav a {
             position: relative;
-            transition: color 0.3s ease;
+            font-weight: 500;
+            color: #4a5568;
+            transition: color 0.2s ease;
         }
         
         nav a::after {
@@ -50,128 +66,272 @@
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: #246fb2;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #667eea, #764ba2);
             transition: width 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: #667eea;
         }
         
         nav a:hover::after {
             width: 100%;
         }
         
-        nav a:hover {
-            color: #246fb2;
+        /* Section headings */
+        .section-heading {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
         }
         
-        /* Title animation */
-        .fade-in-up {
-            animation: fadeInUp 1s ease-out;
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
         }
         
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
+        /* Track cards */
+        .track-card {
+            border-top: 4px solid transparent;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+        
+        .track-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .track-card.compression {
+            border-top-color: #667eea;
+        }
+        
+        .track-card.sparse-view {
+            border-top-color: #764ba2;
+        }
+        
+        /* Button styling */
+        .primary-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Timeline styling */
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: -2rem;
+            width: 2px;
+            background: #e2e8f0;
+        }
+        
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #667eea;
+            z-index: 1;
+        }
+        
+        /* Code block styling */
+        .code-block {
+            background: #1e2837;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        
+        .code-block pre {
+            margin: 0;
+        }
+        
+        /* Award card styling */
+        .award-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .award-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+        }
+        
+        .award-card.first::before {
+            background: linear-gradient(90deg, #f59e0b, #f97316);
+        }
+        
+        .award-card.second::before {
+            background: linear-gradient(90deg, #6b7280, #9ca3af);
+        }
+        
+        .award-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Speaker card */
+        .speaker-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+        
+        .speaker-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .speaker-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3px;
+        }
+        
+        .speaker-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background: white;
+        }
+        
+        /* Table styling */
+        .schedule-table {
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+        
+        .schedule-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .schedule-table tbody tr {
+            transition: all 0.2s ease;
+        }
+        
+        .schedule-table tbody tr:hover {
+            background-color: #f7fafc;
+            transform: translateX(4px);
+        }
+        
+        /* Fade in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        @keyframes fadeIn {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
         
-        /* Section title styles */
-        h2 {
-            font-size: 2.25rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 3px solid #e2e8f0;
-            position: relative;
-            color: #1a365d;
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
         }
         
-        h2::before {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: #246fb2;
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
         }
         
-        /* Card styles */
-        .academic-card {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            box-shadow: 0 4px 6px rgba(26, 54, 93, 0.05);
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
         }
         
-        /* Avatar hover effect */
-        .avatar-hover {
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-        }
-        
-        .avatar-hover:hover {
-            border-color: #246fb2;
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(36, 111, 178, 0.25);
-        }
-        
-        /* Table row hover effect */
-        .table-row:hover {
-            background: linear-gradient(90deg, #f7fafc, #edf2f7);
-            transform: translateX(3px);
-            transition: all 0.3s ease;
-        }
-        
-        /* SIGGRAPH theme colors */
-        .siggraph-blue { color: #246fb2; }
-        .siggraph-dark { color: #1a365d; }
-        .siggraph-bg-blue { background-color: #246fb2; }
-        .siggraph-bg-dark { background-color: #1a365d; }
-        
-        /* Logo container */
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-svg {
-            height: 40px;
-            width: auto;
-        }
-
-        /* Code block styles */
-        .code-block {
-            background-color: #f7fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            font-family: 'Courier New', monospace;
-            font-size: 0.875rem;
-            overflow-x: auto;
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #5a67d8 0%, #68428e 100%);
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body>
 
     <!-- Header and Navigation -->
-    <header class="bg-white/95 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-gray-200">
+    <header class="glass-card sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="logo-container">
-                <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="155" height="50" viewBox="0 0 155 50">
+            <div class="flex items-center">
+                <svg class="h-10 w-auto" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="155" height="50" viewBox="0 0 155 50">
                     <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                        </linearGradient>
                         <clipPath id="clip-path">
-                            <rect id="_1_Logo_B" data-name="1_Logo_B" width="155" height="50" transform="translate(50 25)" fill="#246fb2"/>
+                            <rect id="_1_Logo_B" data-name="1_Logo_B" width="155" height="50" transform="translate(50 25)" fill="url(#logoGradient)"/>
                         </clipPath>
                     </defs>
                     <g id="header-logo" transform="translate(-50 -25)" clip-path="url(#clip-path)">
                         <g id="SA25_Logo_BH" transform="translate(29.993 -47.503)">
-                            <g id="Isolation_Mode">
+                            <g id="Isolation_Mode" fill="url(#logoGradient)">
                                 <g id="Group_27" data-name="Group 27">
                                     <path id="Path_1" data-name="Path 1" d="M34.011,89.441c7.476-5.55,15.939-8.325,20.526-7.178-6.376-6.765-17.223-7.889-25.525-2.225-8.256,5.619-11.169,16.008-7.339,24.4C22.177,100.427,26.58,94.969,34.011,89.441Z"/>
                                     <path id="Path_2" data-name="Path 2" d="M41.533,102.582c-5.917,3.027-11.077,3.83-12.568,1.605-1.9-2.821,2.844-9.426,10.6-14.769,6.582-4.518,13.187-6.674,16.214-5.5a2.363,2.363,0,0,1,.6.573h0c-.046-.069-.092-.115-.115-.161-2.5-2.958-12.224-1.1-21.649,5.894-9.013,6.7-13.577,13.37-11.49,16.765a2.548,2.548,0,0,1-.161-.367.461.461,0,0,0,.092.183c2.018,2.958,10.045,1.055,18.485-4.2Z"/>
@@ -212,7 +372,7 @@
                     </g>
                 </svg>
             </div>
-            <nav class="hidden md:flex space-x-8 text-gray-600 font-medium">
+            <nav class="hidden md:flex space-x-8">
                 <a href="#overview">Overview</a>
                 <a href="#challenges">Challenges</a>
                 <a href="#dataset">Dataset</a>
@@ -229,570 +389,723 @@
                 </svg>
             </button>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-white border-t">
-            <a href="#overview" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Overview</a>
-            <a href="#challenges" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Challenges</a>
-            <a href="#dataset" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Dataset</a>
-            <a href="#evaluation" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Evaluation</a>
-            <a href="#dates" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Important Dates</a>
-            <a href="#awards" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Awards</a>
-            <a href="#speakers" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Speakers</a>
-            <a href="#schedule" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Schedule</a>
-            <a href="#organizers" class="block py-3 text-gray-600 hover:text-blue-600 transition-colors">Organizers</a>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-white/90 backdrop-blur-sm border-t">
+            <a href="#overview" class="block py-3 text-gray-600 hover:text-purple-600 transition-colors">Overview</a>
+            <a href="#challenges" class="block py-3 text-gray-600 hover:text-purple-600 transition-colors">Challenges</a>
+            <a href="#dataset" class="block py-3 text-gray-600 hover:text-purple-600 transition-colors">Dataset</a>
+            <a href="#evaluation" class="block py-3 text-gray-600 hover:text-purple-600 transition-colors">Evaluation</a>
+            <a href="#dates" class="block py-3 text-gray-600 hover:text-purple-600 transition-colors">Important Dates</a>
+            <a href="#awards" class="block py-3 text-gray-600 hover:text-purple-600 transition-colors">Awards</a>
+            <a href="#speakers" class="block py-3 text-gray-600 hover:text-purple-600 transition-colors">Speakers</a>
+            <a href="#schedule" class="block py-3 text-gray-600 hover:text-purple-600 transition-colors">Schedule</a>
+            <a href="#organizers" class="block py-3 text-gray-600 hover:text-purple-600 transition-colors">Organizers</a>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-6 py-12">
+    <main>
         
-        <!-- Website Title -->
-        <section class="text-center mb-20 fade-in-up">
-            <div class="siggraph-bg text-white rounded-2xl p-12 mb-8">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">1st Volumetric Video Challenge</h1>
-                <p class="text-xl md:text-2xl font-light opacity-90 mb-4">@SIGGRAPH Asia 2025 Volumetric Video Workshop</p>
+        <!-- Hero Section -->
+        <section class="hero-gradient text-white py-20 relative">
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 fade-in">
+                    1st Volumetric Video Challenge
+                </h1>
+                <p class="text-xl md:text-2xl font-light opacity-90 mb-8 fade-in" style="animation-delay: 0.1s;">
+                    SIGGRAPH Asia 2025 Volumetric Video Workshop
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 fade-in" style="animation-delay: 0.2s;">
+                    <span class="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">
+                        📍 Hong Kong, China
+                    </span>
+                    <span class="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">
+                        📅 December 15-18, 2025
+                    </span>
+                </div>
             </div>
         </section>
 
-        <!-- Overview -->
-        <section id="overview" class="mb-16">
-            <h2>Overview</h2>
-            <div class="academic-card rounded-2xl p-8 hover-lift">
-                <div class="space-y-6 text-lg text-gray-700 leading-relaxed">
-                    <p class="text-xl font-medium siggraph-dark mb-6">
-                        The goal of this challenge workshop is to accelerate the transition of volumetric video technology from laboratory prototypes to robust, production- and consumer-ready systems, enabling breakthroughs in immersive interactive experiences.
+        <div class="container mx-auto px-6 py-12">
+
+            <!-- Overview -->
+            <section id="overview" class="mb-20">
+                <h2 class="section-heading">Overview</h2>
+                <div class="glass-card rounded-2xl p-8">
+                    <p class="text-xl leading-relaxed mb-6 text-gray-700">
+                        This challenge workshop aims to accelerate the transition of volumetric video technology from laboratory prototypes to robust, production- and consumer-ready systems, enabling breakthroughs in immersive interactive experiences.
                     </p>
-                    <p>
-                        The challenge is designed to address two core bottlenecks hindering the scalability of volumetric video:
-                    </p>
-                    <div class="grid md:grid-cols-2 gap-6 mt-6">
-                        <div class="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-600">
-                            <h4 class="font-bold siggraph-dark mb-2">Compression Track</h4>
-                            <p class="text-gray-700">Focuses on balancing storage efficiency and playback performance for practical deployment.</p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="track-card compression">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800">Compression Track</h3>
+                            </div>
+                            <p class="text-gray-600">Focuses on balancing storage efficiency and playback performance for practical deployment in real-world applications.</p>
                         </div>
-                        <div class="bg-slate-50 p-6 rounded-xl border-l-4 border-slate-600">
-                            <h4 class="font-bold siggraph-dark mb-2">Sparse-View Track</h4>
-                            <p class="text-gray-700">Focuses on accurately reconstructing dynamic 3D humans from a minimal number of camera viewpoints, reducing hardware costs and simplifying capture setups for consumer and industrial use cases.</p>
-                        </div>
-                    </div>
-                    <p class="italic text-gray-600 bg-gray-50 p-4 rounded-lg border-l-4 border-gray-300">
-                        Our challenge will provide a unique opportunity for fostering cross-disciplinary discussion between computer vision, computer graphics, and AR/VR practitioners, uniting expertise in 3D reconstruction, generative AI, and immersive media systems.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Important Dates -->
-        <section id="dates" class="mb-16">
-            <h2>Important Dates</h2>
-            <div class="academic-card rounded-2xl p-8 hover-lift">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="space-y-4">
-                        <div class="flex items-center p-4 bg-blue-50 rounded-lg border-l-4 border-blue-600">
-                            <div class="w-10 h-10 siggraph-bg-blue rounded-full flex items-center justify-center mr-4">
-                                <span class="text-white font-bold">1</span>
+                        <div class="track-card sparse-view">
+                            <div class="flex items-center mb-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg flex items-center justify-center mr-3">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-800">Sparse-View Track</h3>
                             </div>
-                            <div>
-                                <p class="font-bold siggraph-dark">Registration Opens</p>
-                                <p class="text-gray-600">07/08/2025</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center p-4 bg-green-50 rounded-lg border-l-4 border-green-600">
-                            <div class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center mr-4">
-                                <span class="text-white font-bold">2</span>
-                            </div>
-                            <div>
-                                <p class="font-bold siggraph-dark">Dataset Releases</p>
-                                <p class="text-gray-600">15/08/2025</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center p-4 bg-orange-50 rounded-lg border-l-4 border-orange-600">
-                            <div class="w-10 h-10 bg-orange-600 rounded-full flex items-center justify-center mr-4">
-                                <span class="text-white font-bold">3</span>
-                            </div>
-                            <div>
-                                <p class="font-bold siggraph-dark">Submission Deadline</p>
-                                <p class="text-gray-600">01/11/2025</p>
-                            </div>
+                            <p class="text-gray-600">Focuses on accurately reconstructing dynamic 3D humans from minimal camera viewpoints, reducing hardware costs and simplifying capture setups.</p>
                         </div>
                     </div>
-                    <div class="space-y-4">
-                        <div class="flex items-center p-4 bg-purple-50 rounded-lg border-l-4 border-purple-600">
-                            <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center mr-4">
-                                <span class="text-white font-bold">4</span>
-                            </div>
-                            <div>
-                                <p class="font-bold siggraph-dark">Challenge Result</p>
-                                <p class="text-gray-600">15/11/2025</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center p-4 bg-slate-50 rounded-lg border-l-4 border-slate-600">
-                            <div class="w-10 h-10 siggraph-bg-dark rounded-full flex items-center justify-center mr-4">
-                                <span class="text-white font-bold">5</span>
-                            </div>
-                            <div>
-                                <p class="font-bold siggraph-dark">Award & Workshop</p>
-                                <p class="text-gray-600">Volumetric Video Workshop @ SIGGRAPH Asia 2025</p>
-                            </div>
-                        </div>
+                    <div class="mt-8 p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border-l-4 border-purple-500">
+                        <p class="text-gray-700 italic">
+                            Our challenge fosters cross-disciplinary discussion between computer vision, computer graphics, and AR/VR practitioners, uniting expertise in 3D reconstruction, generative AI, and immersive media systems.
+                        </p>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Challenges -->
-        <section id="challenges" class="mb-16">
-            <h2>Challenges</h2>
-            <p class="mb-8 text-xl text-gray-700 text-center">The challenge focuses on boosting novel compression and sparse-view reconstruction techniques for volumetric videos.</p>
-            
-            <div class="grid md:grid-cols-2 gap-8 mb-8">
-                <div class="academic-card p-8 rounded-2xl hover-lift border-l-4 border-blue-600">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 siggraph-bg-blue rounded-lg flex items-center justify-center mr-4">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                            </svg>
+            <!-- Important Dates -->
+            <section id="dates" class="mb-20">
+                <h2 class="section-heading">Important Dates</h2>
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="space-y-6">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="flex items-center justify-between flex-wrap">
+                                <div>
+                                    <h4 class="font-bold text-lg text-gray-800">Registration Opens</h4>
+                                    <p class="text-gray-600">Get ready to participate in the challenge</p>
+                                </div>
+                                <span class="text-purple-600 font-semibold">August 7, 2025</span>
+                            </div>
                         </div>
-                        <h3 class="text-2xl font-bold siggraph-dark">Compression Track</h3>
-                    </div>
-                    <p class="text-gray-600 mb-6 text-lg">Given reconstruction quality metrics, minimize file size while maintaining high quality.</p>
-                    <!-- TODO: Add link when available -->
-                    <span class="text-gray-400">Download link: TBD</span>
-                </div>
-                <div class="academic-card p-8 rounded-2xl hover-lift border-l-4 border-slate-600">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 siggraph-bg-dark rounded-lg flex items-center justify-center mr-4">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                            </svg>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="flex items-center justify-between flex-wrap">
+                                <div>
+                                    <h4 class="font-bold text-lg text-gray-800">Dataset Release</h4>
+                                    <p class="text-gray-600">Full dataset available for download</p>
+                                </div>
+                                <span class="text-purple-600 font-semibold">August 15, 2025</span>
+                            </div>
                         </div>
-                        <h3 class="text-2xl font-bold siggraph-dark">Sparse-View Track</h3>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="flex items-center justify-between flex-wrap">
+                                <div>
+                                    <h4 class="font-bold text-lg text-gray-800">Submission Deadline</h4>
+                                    <p class="text-gray-600">Final submission of your results</p>
+                                </div>
+                                <span class="text-purple-600 font-semibold">November 1, 2025</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="flex items-center justify-between flex-wrap">
+                                <div>
+                                    <h4 class="font-bold text-lg text-gray-800">Results Announcement</h4>
+                                    <p class="text-gray-600">Winners will be notified</p>
+                                </div>
+                                <span class="text-purple-600 font-semibold">November 15, 2025</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="flex items-center justify-between flex-wrap">
+                                <div>
+                                    <h4 class="font-bold text-lg text-gray-800">Workshop & Awards</h4>
+                                    <p class="text-gray-600">Join us at SIGGRAPH Asia 2025</p>
+                                </div>
+                                <span class="text-purple-600 font-semibold">December 3-6, 2025</span>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-gray-600 mb-6 text-lg">Accurately reconstruct dynamic 3D humans from 8 & 24 camera views.</p>
-                    <!-- TODO: Add link when available -->
-                    <span class="text-gray-400">Download link: TBD</span>
                 </div>
-            </div>
+            </section>
 
-            <!-- Registration Button -->
-            <div class="text-center">
-                <a href="https://forms.gle/rJtwoSPoqeHbyVW16" target="_blank" class="inline-block siggraph-bg-blue text-white px-8 py-3 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity">
-                    Register for the Challenge
-                </a>
-            </div>
-        </section>
-
-        <!-- Dataset -->
-        <section id="dataset" class="mb-16">
-            <h2>Dataset</h2>
-            <div class="academic-card rounded-2xl p-8 hover-lift">
-                <p class="text-lg text-gray-700 mb-6">The dataset contains diverse dynamic human subjects captured in high-fidelity, featuring:</p>
-                <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
-                    <li>Front-facing human captures</li>
-                    <li>Multi-view 4K video sequences at 60FPS</li>
-                    <li>Accurate camera intrinsic/extrinsic parameters and time synchronization</li>
-                </ul>
+            <!-- Challenges -->
+            <section id="challenges" class="mb-20">
+                <h2 class="section-heading">Challenge Tracks</h2>
+                <p class="text-lg text-gray-600 mb-8 text-center max-w-3xl mx-auto">
+                    The challenge features two tracks focusing on cutting-edge compression and sparse-view reconstruction techniques for volumetric videos.
+                </p>
                 
-                <p class="text-lg font-semibold siggraph-dark mb-4">Dataset Structure:</p>
-                <div class="code-block">
-                    <pre>
-.
-├── intri.yml # Camera intrinsics for training views
-├── extri.yml # Camera extrinsics for training views
-├── novel_intri.yml # Camera intrinsics for novel views
-├── novel_extri.yml # Camera extrinsics for novel views
-├── images # Multi-view images
-│   ├── 00 # Camera 0 (may be up to 48 views for testing, 60 for validation)
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div class="track-card compression">
+                        <div class="mb-6">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-3">Compression Track</h3>
+                            <p class="text-gray-600 mb-4">
+                                Optimize file size while maintaining high reconstruction quality metrics. Perfect for teams working on efficient storage and streaming solutions.
+                            </p>
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Dataset: 2 validation + 5 test sequences
+                            </div>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                Training views: 48 cameras
+                            </div>
+                        </div>
+                        <span class="text-gray-400 text-sm">Download link: Coming soon</span>
+                    </div>
+                    
+                    <div class="track-card sparse-view">
+                        <div class="mb-6">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-3">Sparse-View Track</h3>
+                            <p class="text-gray-600 mb-4">
+                                Reconstruct dynamic 3D humans from limited camera views (8 & 24). Ideal for teams exploring neural rendering and view synthesis.
+                            </p>
+                            <div class="flex items-center text-sm text-gray-500 mb-2">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Dataset: 2 validation + 10 test sequences
+                            </div>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                Training views: 8 & 24 cameras
+                            </div>
+                        </div>
+                        <span class="text-gray-400 text-sm">Download link: Coming soon</span>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="https://forms.gle/rJtwoSPoqeHbyVW16" target="_blank" class="primary-button">
+                        Register for the Challenge
+                    </a>
+                </div>
+            </section>
+
+            <!-- Dataset -->
+            <section id="dataset" class="mb-20">
+                <h2 class="section-heading">Dataset</h2>
+                <div class="glass-card rounded-2xl p-8">
+                    <p class="text-lg text-gray-700 mb-6">
+                        Our high-fidelity dataset features diverse dynamic human subjects with:
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl">
+                            <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-2">4K Video @ 60FPS</h4>
+                            <p class="text-gray-600 text-sm">Multi-view synchronized capture</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl">
+                            <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-2">Camera Calibration</h4>
+                            <p class="text-gray-600 text-sm">Accurate intrinsic/extrinsic parameters</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl">
+                            <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-2">Front-facing Captures</h4>
+                            <p class="text-gray-600 text-sm">Human-centric volumetric data</p>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-bold text-gray-800 mb-4">Dataset Structure:</h4>
+                    <div class="code-block mono-font">
+                        <pre>.
+├── intri.yml              # Camera intrinsics for training views
+├── extri.yml              # Camera extrinsics for training views
+├── novel_intri.yml        # Camera intrinsics for novel views
+├── novel_extri.yml        # Camera extrinsics for novel views
+├── images/                # Multi-view images
+│   ├── 00/               # Camera 0 (up to 48/60 views)
 │   │   ├── 000000.jpg
 │   │   └── ...
 │   └── ...
-├── masks # Foreground masks
-│   ├── 00 # up to 60 views
+├── masks/                 # Foreground masks
+│   ├── 00/               # up to 60 views
 │   │   ├── 000000.jpg
 │   │   └── ...
 │   └── ...
-├── pcds_fg # Foreground point clouds for reference/evaluation
+├── pcds_fg/               # Foreground point clouds
 │   ├── 000000.ply
 │   └── ...
-├── pcds_bg # Background point clouds for reference
-│   └── 000000.ply</pre>
-                </div>
-                
-                <p class="text-gray-600 mt-6">We will provide an official Python script for data parsing and visualization.</p>
-                <p class="text-gray-600 mt-2 font-medium">All data are provided for research use only.</p>
-            </div>
-        </section>
-
-        <!-- Evaluation -->
-        <section id="evaluation" class="mb-16">
-            <h2>Evaluation</h2>
-            <div class="academic-card rounded-2xl p-8 hover-lift">
-                <p class="text-lg text-gray-700 mb-6">All evaluations will be conducted on a Linux workstation with an NVIDIA RTX4090 GPU.</p>
-                <p class="text-lg text-gray-700 mb-4">For novel-view reconstruction quality, we use PSNR, SSIM, and LPIPS on the test set.</p>
-                
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h4 class="font-bold siggraph-dark text-xl mb-4">Compression Track:</h4>
-                        <p class="text-gray-700 mb-4">Each metric is computed as a weighted sum of foreground-only and full-image modes:</p>
-                        <p class="bg-gray-100 p-4 rounded-lg font-mono text-center mb-4">
-                            PSNR = 0.5 × PSNR<sub>fg</sub> + 0.5 × PSNR<sub>full</sub>
-                        </p>
-                        <p class="text-gray-700 mb-4">The foreground mask is defined by the provided binary masks.</p>
-                        <p class="text-gray-700 mb-4">
-                            We follow the ranking method of 
-                            <a href="https://w-m.github.io/3dgs-compression-survey/" class="text-blue-600 underline hover:text-blue-800" target="_blank" rel="noopener">
-                              3DGS.zip
-                            </a>,
-                            computing for all sequences:
-                          </p>
-                        <p class="bg-gray-100 p-4 rounded-lg font-mono text-sm">
-                            Dataset rank = rank(PSNR)/6 + rank(SSIM)/6 + rank(LPIPS)/6 + rank(Size[MB])/2
-                        </p>
+└── pcds_bg/               # Background point clouds
+    └── 000000.ply</pre>
                     </div>
-                    <div>
-                        <h4 class="font-bold siggraph-dark text-xl mb-4">Sparse-View Track:</h4>
-                        <p class="text-gray-700 mb-4">Each metric is computed on foreground-only images. The foreground mask is defined by the provided binary masks.</p>
-                        <p class="text-gray-700 mb-4">Ranking for all sequences:</p>
-                        <p class="bg-gray-100 p-4 rounded-lg font-mono">
-                            Dataset rank = rank(PSNR)/3 + rank(SSIM)/3 + rank(LPIPS)/3
+                    
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
+                        <p class="text-sm text-gray-700">
+                            <strong>Note:</strong> We provide official Python scripts for data parsing and visualization. All data are provided for research use only.
                         </p>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Track Details -->
-        <section class="mb-16">
-            <div class="grid md:grid-cols-1 gap-8">
-                <!-- Compression Track Details -->
-                <div class="academic-card rounded-2xl p-8 hover-lift">
-                    <h3 class="text-2xl font-bold siggraph-dark mb-6">Compression Track</h3>
+            <!-- Evaluation -->
+            <section id="evaluation" class="mb-20">
+                <h2 class="section-heading">Evaluation</h2>
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                        <p class="text-gray-700">
+                            <strong>Hardware:</strong> All evaluations conducted on Linux workstation with NVIDIA RTX 4090 GPU
+                        </p>
+                    </div>
                     
-                    <h4 class="font-bold text-xl mb-4">Introduction</h4>
-                    <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
-                        <li><strong>Validation set:</strong> Two sequences
-                            <ul class="list-disc list-inside ml-6 mt-2">
-                                <li>Full 60-view images and masks</li>
-                                <li>Camera intrinsic and extrinsic parameters for all 60 views</li>
-                            </ul>
-                        </li>
-                        <li><strong>Testing set:</strong> Five sequences
-                            <ul class="list-disc list-inside ml-6 mt-2">
-                                <li>48-view images and masks</li>
-                                <li>Camera intrinsic and extrinsic parameters for all 60 views</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <p class="text-gray-700 mb-6">The remaining camera views (i.e., not included in the 48 training views) are reserved exclusively for evaluation as novel views. Their images and masks will not be accessible to participants.</p>
-                    <p class="text-gray-700 mb-6">
-                        We will provide our self-implemented 
-                        <a href="https://zju3dv.github.io/freetimegs/" class="text-blue-600 underline hover:text-blue-800" target="_blank" rel="noopener">
-                          FreeTimeGS
-                        </a>
-                        baseline model along with rendering scripts for each sequence. Participants are free to use our baseline as a starting point (including experimenting with post-processing such as linear/non-linear quantization or pruning), or to develop and submit any novel compressed representations and methods. There is no restriction on the compression approach, and innovative solutions are encouraged.
-                      </p>
-                    
-                    <h4 class="font-bold text-xl mb-4">Submission Materials</h4>
-                    <ol class="list-decimal list-inside text-gray-700 space-y-4">
-                        <li>A short technical report (see Guidelines)</li>
-                        <li><strong>Rendering results:</strong>
-                            <ul class="list-disc list-inside ml-6 mt-2">
-                                <li>A zip file containing full-size novel-view rendered images.</li>
-                                <li>Directory structure should be:
-                                    <div class="code-block mt-2">
-                                        <pre>
-.
-├── 00
-│   ├── 000000.png
-│   ├── ...
-│   ├── 000000.jpg
-├── 01
-│   ├── 000000.jpg
-│   ├── ...
-│   ├── 000000.jpg
-...</pre>
-                                    </div>
-                                </li>
-                                <li>Each top-level folder corresponds to a test sequence.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Compressed model & Rendering scripts:</strong>
-                            <ul class="list-disc list-inside ml-6 mt-2">
-                                <li>A zip file containing:
-                                    <ul class="list-disc list-inside ml-6 mt-2">
-                                        <li>Your Conda environment .yml file</li>
-                                        <li>Your compressed models and rendering scripts</li>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Compression Track</h3>
+                            <div class="space-y-4">
+                                <div class="p-4 bg-purple-50 rounded-lg">
+                                    <p class="font-medium text-gray-800 mb-2">Metrics Computation:</p>
+                                    <p class="mono-font text-sm text-gray-700">
+                                        PSNR = 0.5 × PSNR<sub>fg</sub> + 0.5 × PSNR<sub>full</sub>
+                                    </p>
+                                </div>
+                                <p class="text-gray-600">
+                                    Following the <a href="https://w-m.github.io/3dgs-compression-survey/" class="text-purple-600 hover:text-purple-800 underline" target="_blank">3DGS.zip</a> ranking method:
+                                </p>
+                                <div class="p-4 bg-gray-100 rounded-lg">
+                                    <p class="mono-font text-sm">
+                                        Rank = rank(PSNR)/6 + rank(SSIM)/6 + rank(LPIPS)/6 + rank(Size)/2
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Sparse-View Track</h3>
+                            <div class="space-y-4">
+                                <div class="p-4 bg-pink-50 rounded-lg">
+                                    <p class="font-medium text-gray-800 mb-2">Evaluation Focus:</p>
+                                    <p class="text-sm text-gray-700">
+                                        Foreground-only images using provided binary masks
+                                    </p>
+                                </div>
+                                <p class="text-gray-600">
+                                    Ranking computation for all sequences:
+                                </p>
+                                <div class="p-4 bg-gray-100 rounded-lg">
+                                    <p class="mono-font text-sm">
+                                        Rank = rank(PSNR)/3 + rank(SSIM)/3 + rank(LPIPS)/3
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Track Details -->
+            <section class="mb-20">
+                <h2 class="section-heading mb-8">Detailed Requirements</h2>
+                
+                <div class="space-y-8">
+                    <!-- Compression Track Details -->
+                    <div class="glass-card rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">
+                            <span class="inline-block w-1 h-6 bg-gradient-to-b from-indigo-500 to-purple-600 mr-3"></span>
+                            Compression Track
+                        </h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-lg text-gray-800 mb-3">Dataset Split</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="p-4 bg-purple-50 rounded-lg">
+                                    <p class="font-semibold text-purple-800">Validation Set (2 sequences)</p>
+                                    <ul class="text-sm text-gray-700 mt-2 space-y-1">
+                                        <li>• Full 60-view images and masks</li>
+                                        <li>• All camera parameters provided</li>
                                     </ul>
-                                </li>
-                                <li>Your rendering code should support the following evaluation command:
-                                    <div class="code-block mt-2">
-                                        <pre>
-conda env create -f [YOUR_ENV_FILE].yml
-conda activate [YOUR_ENV_NAME]
-python3 render.py --model [YOUR_MODEL] --intri novel_intri.yml --extri novel_extri.yml</pre>
+                                </div>
+                                <div class="p-4 bg-indigo-50 rounded-lg">
+                                    <p class="font-semibold text-indigo-800">Test Set (5 sequences)</p>
+                                    <ul class="text-sm text-gray-700 mt-2 space-y-1">
+                                        <li>• 48-view images and masks</li>
+                                        <li>• 12 held-out views for evaluation</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-lg text-gray-800 mb-3">Baseline</h4>
+                            <p class="text-gray-600">
+                                We provide a <a href="https://zju3dv.github.io/freetimegs/" class="text-purple-600 hover:text-purple-800 underline" target="_blank">FreeTimeGS</a> implementation as baseline. Participants can use it as a starting point or develop novel compression methods.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-lg text-gray-800 mb-3">Submission Requirements</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-start">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-white text-sm font-bold mr-3 mt-0.5">1</span>
+                                    <div>
+                                        <p class="font-medium">Technical Report (PDF, max 4 pages)</p>
+                                        <p class="text-sm text-gray-600">SIGGRAPH Asia Technical Communications template recommended</p>
                                     </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-white text-sm font-bold mr-3 mt-0.5">2</span>
+                                    <div>
+                                        <p class="font-medium">Rendered Results (ZIP)</p>
+                                        <p class="text-sm text-gray-600">Novel-view images in specified directory structure</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-white text-sm font-bold mr-3 mt-0.5">3</span>
+                                    <div>
+                                        <p class="font-medium">Model & Code (ZIP)</p>
+                                        <p class="text-sm text-gray-600">Including conda environment and evaluation scripts</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sparse-View Track Details -->
+                    <div class="glass-card rounded-2xl p-8">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">
+                            <span class="inline-block w-1 h-6 bg-gradient-to-b from-purple-600 to-pink-600 mr-3"></span>
+                            Sparse-View Track
+                        </h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-bold text-lg text-gray-800 mb-3">Dataset Split</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="p-4 bg-pink-50 rounded-lg">
+                                    <p class="font-semibold text-pink-800">Validation Set (2 sequences)</p>
+                                    <ul class="text-sm text-gray-700 mt-2 space-y-1">
+                                        <li>• Full 60-view images and masks</li>
+                                        <li>• All camera parameters provided</li>
+                                    </ul>
+                                </div>
+                                <div class="p-4 bg-purple-50 rounded-lg">
+                                    <p class="font-semibold text-purple-800">Test Set (10 sequences)</p>
+                                    <ul class="text-sm text-gray-700 mt-2 space-y-1">
+                                        <li>• 5 sequences with 8 views</li>
+                                        <li>• 5 sequences with 24 views</li>
+                                        <li>• Remaining views held out for evaluation</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-lg text-gray-800 mb-3">Submission Requirements</h4>
+                            <p class="text-gray-600">
+                                The submission format follows the same structure as the Compression Track. Please ensure your method can handle both 8-view and 24-view settings.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Guidelines -->
+            <section class="mb-20">
+                <h2 class="section-heading">Submission Guidelines</h2>
+                <div class="glass-card rounded-2xl p-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">Registration</h3>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-purple-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span>One registration per team</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-purple-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span>Team name serves as official identifier</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-5 h-5 text-purple-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span>Maximum 3 submissions per track</span>
                                 </li>
                             </ul>
-                        </li>
-                    </ol>
-                </div>
-
-                <!-- Sparse-View Track Details -->
-                <div class="academic-card rounded-2xl p-8 hover-lift">
-                    <h3 class="text-2xl font-bold siggraph-dark mb-6">Sparse-View Track</h3>
-                    
-                    <h4 class="font-bold text-xl mb-4">Introduction</h4>
-                    <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
-                        <li><strong>Validation set:</strong> Two sequences
-                            <ul class="list-disc list-inside ml-6 mt-2">
-                                <li>Full 60-view images and masks</li>
-                                <li>Camera intrinsic and extrinsic parameters for all 60 views</li>
-                            </ul>
-                        </li>
-                        <li><strong>Testing set:</strong> Five 8-view sequences & Five 24-view sequences
-                            <ul class="list-disc list-inside ml-6 mt-2">
-                                <li>5 sequences under the 8-view setting (i.e., only 8 selected camera views' images and masks are provided per sequence)</li>
-                                <li>5 sequences under the 24-view setting (i.e., only 24 selected camera views' images and masks are provided per sequence)</li>
-                                <li>Camera intrinsic and extrinsic parameters for all 60 views are available for both settings</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <p class="text-gray-700 mb-6">The remaining camera views (i.e., not included in the 8/24 training views) are reserved exclusively for evaluation as novel views. Their images and masks will not be accessible to participants.</p>
-                    
-                    <h4 class="font-bold text-xl mb-4">Submission Materials</h4>
-                    <p class="text-gray-700 mb-4">The submission materials follow the same format as the Compression Track.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Guidelines -->
-        <section class="mb-16">
-            <h2>Guidelines</h2>
-            <div class="academic-card rounded-2xl p-8 hover-lift">
-                <h3 class="text-xl font-bold siggraph-dark mb-4">Registration:</h3>
-                <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
-                    <li>Registration link: <a href="https://forms.gle/rJtwoSPoqeHbyVW16" target="_blank" class="siggraph-blue hover:underline">https://forms.gle/rJtwoSPoqeHbyVW16</a></li>
-                    <li>Each team is permitted to register only once for the competition.</li>
-                    <li>The registered Team Name will serve as the official identifier for all evaluation purposes.</li>
-                    <li>Please ensure that all information provided during registration is accurate and up-to-date.</li>
-                </ul>
-
-                <h3 class="text-xl font-bold siggraph-dark mb-4">Submission:</h3>
-                <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
-                    <!-- TODO: Add submission link when available -->
-                    <li>Please upload your submission via this link: <span class="text-gray-400">TBD</span></li>
-                    <li>Enter your Team Name and upload the required files.</li>
-                    <li>Please note that each team is allowed a maximum of three submissions per track. If more than three submissions are made, only the third submission will be considered for evaluation.</li>
-                </ul>
-
-                <h3 class="text-xl font-bold siggraph-dark mb-4">Technical Report:</h3>
-                <ul class="list-disc list-inside text-gray-700 mb-6 space-y-2">
-                    <li><strong>Page Limit:</strong> The main content of each report must not exceed 4 pages. There is no page limit for references or appendices.</li>
-                    <li><strong>Formatting:</strong>
-                        <ul class="list-disc list-inside ml-6 mt-2">
-                            <li>It is highly recommended to use the SIGGRAPH Asia Technical Communications template.</li>
-                            <li>Submissions should be in PDF format.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Archival Status:</strong> All accepted reports are non-archival.</li>
-                </ul>
-
-                <h3 class="text-xl font-bold siggraph-dark mb-4">File Naming:</h3>
-                <ul class="list-disc list-inside text-gray-700 space-y-2">
-                    <li>Technical report: TeamName.pdf</li>
-                    <li>Rendering results: TeamName.zip</li>
-                    <li>Model & Scripts: TeamName_Model.zip</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Awards -->
-        <section id="awards" class="mb-16">
-            <h2>Awards</h2>
-            <div class="academic-card rounded-2xl p-8 hover-lift text-center">
-                <p class="text-xl text-gray-700 mb-8">This challenge features two prestigious prizes for each track:</p>
-                <div class="grid md:grid-cols-2 gap-8 mb-8">
-                    <div class="bg-yellow-50 p-8 rounded-xl border-2 border-yellow-400">
-                        <h3 class="text-3xl font-bold text-yellow-600 mb-2">First Prize</h3>
-                        <p class="text-5xl font-bold siggraph-dark">$2,500</p>
-                    </div>
-                    <div class="bg-gray-100 p-8 rounded-xl border-2 border-gray-400">
-                        <h3 class="text-3xl font-bold text-gray-600 mb-2">Second Prize</h3>
-                        <p class="text-5xl font-bold siggraph-dark">$1,500</p>
+                            
+                            <div class="mt-6">
+                                <a href="https://forms.gle/rJtwoSPoqeHbyVW16" target="_blank" class="inline-flex items-center text-purple-600 hover:text-purple-800 font-medium">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                                    </svg>
+                                    Registration Form
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">File Naming Convention</h3>
+                            <div class="space-y-3">
+                                <div class="p-3 bg-gray-50 rounded-lg">
+                                    <p class="mono-font text-sm">
+                                        <span class="text-gray-500">Report:</span> TeamName.pdf
+                                    </p>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded-lg">
+                                    <p class="mono-font text-sm">
+                                        <span class="text-gray-500">Results:</span> TeamName.zip
+                                    </p>
+                                </div>
+                                <div class="p-3 bg-gray-50 rounded-lg">
+                                    <p class="mono-font text-sm">
+                                        <span class="text-gray-500">Model:</span> TeamName_Model.zip
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <p class="text-sm text-gray-600 mt-4">
+                                <strong>Note:</strong> All reports are non-archival. Submission link will be provided soon.
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <p class="text-lg text-gray-700 mb-4">Winning teams will be invited to present their projects at the workshop and receive their awards on stage.</p>
-                <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
-                    <p class="text-red-700 font-semibold">IMPORTANT: Winning teams are required to send at least one member to register for either the "Full Access Supporter" or "Full Access" pass of SIGGRAPH Asia 2025; otherwise, the award will be deemed invalid.</p>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Schedule -->
-        <section id="schedule" class="mb-16">
-            <h2>Schedule</h2>
-            <div class="academic-card rounded-2xl overflow-hidden hover-lift">
-                <!-- TODO: Add specific date when available -->
-                <p class="text-gray-600 p-6 pb-0">The workshop will take place on <span class="text-gray-400">TBD</span>.</p>
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead class="siggraph-bg-blue text-white">
-                            <tr>
-                                <th class="p-6 font-bold text-left text-lg">Times (HKT)</th>
-                                <th class="p-6 font-bold text-left text-lg">Event</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr class="table-row">
-                                <td class="p-6 font-semibold siggraph-blue">13:00-13:30</td>
-                                <td class="p-6 text-gray-700">Welcome Remarks and Challenge Results</td>
-                            </tr>
-                            <tr class="table-row">
-                                <td class="p-6 font-semibold siggraph-blue">13:30-15:00</td>
-                                <td class="p-6 text-gray-700">Winner Teams Presentation</td>
-                            </tr>
-                            <tr class="table-row">
-                                <td class="p-6 font-semibold siggraph-blue">15:00-15:30</td>
-                                <td class="p-6 text-gray-700">Coffee Break</td>
-                            </tr>
-                            <tr class="table-row">
-                                <td class="p-6 font-semibold siggraph-blue">15:30-17:00</td>
-                                <td class="p-6 text-gray-700">Invited Speaker Presentations</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- Awards -->
+            <section id="awards" class="mb-20">
+                <h2 class="section-heading">Awards</h2>
+                <div class="text-center mb-8">
+                    <p class="text-lg text-gray-600">
+                        Each track features two prestigious prizes
+                    </p>
                 </div>
-            </div>
-        </section>
-
-        <!-- Keynote Speakers -->
-        <section id="speakers" class="mb-16">
-            <h2>Keynote Speakers</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- TODO: Add speaker information when available -->
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <div class="w-32 h-32 rounded-full mx-auto mb-4 avatar-hover bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                        <span class="text-gray-500 font-medium">TBD</span>
+                <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-8">
+                    <div class="award-card first">
+                        <div class="text-6xl mb-4">🥇</div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">First Prize</h3>
+                        <p class="text-4xl font-bold text-orange-600">$2,500</p>
                     </div>
-                    <h3 class="text-xl font-bold siggraph-dark">TBD</h3>
-                    <p class="text-gray-600 mb-3">TBD</p>
-                </div>
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <div class="w-32 h-32 rounded-full mx-auto mb-4 avatar-hover bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                        <span class="text-gray-500 font-medium">TBD</span>
+                    <div class="award-card second">
+                        <div class="text-6xl mb-4">🥈</div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Second Prize</h3>
+                        <p class="text-4xl font-bold text-gray-600">$1,500</p>
                     </div>
-                    <h3 class="text-xl font-bold siggraph-dark">TBD</h3>
-                    <p class="text-gray-600 mb-3">TBD</p>
                 </div>
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <div class="w-32 h-32 rounded-full mx-auto mb-4 avatar-hover bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                        <span class="text-gray-500 font-medium">TBD</span>
+                <div class="glass-card rounded-2xl p-6 max-w-3xl mx-auto">
+                    <p class="text-gray-700 mb-4">
+                        Winners will present their work at the workshop and receive awards on stage.
+                    </p>
+                    <div class="p-4 bg-red-50 rounded-lg border-l-4 border-red-500">
+                        <p class="text-red-800 font-medium text-sm">
+                            Important: Winning teams must send at least one member with "Full Access Supporter" or "Full Access" pass to SIGGRAPH Asia 2025.
+                        </p>
                     </div>
-                    <h3 class="text-xl font-bold siggraph-dark">TBD</h3>
-                    <p class="text-gray-600 mb-3">TBD</p>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Organizers -->
-        <section id="organizers" class="mb-16">
-            <h2>Organizers</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <img src="https://www.xzhou.me/images/portrait.jpg" 
-                         alt="Xiaowei Zhou" 
-                         class="w-24 h-24 rounded-full mx-auto mb-3 avatar-hover object-cover">
-                    <h3 class="text-lg font-bold siggraph-dark">Xiaowei Zhou</h3>
-                    <p class="text-sm text-gray-600 mb-2">Zhejiang University</p>
-                    <a href="https://www.xzhou.me/" target="_blank" class="siggraph-blue hover:text-blue-800 text-sm font-medium">Personal Page</a>
+            <!-- Schedule -->
+            <section id="schedule" class="mb-20">
+                <h2 class="section-heading">Workshop Schedule</h2>
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-4">
+                            The workshop will take place during SIGGRAPH Asia 2025 (exact date TBD)
+                        </p>
+                    </div>
+                    <div class="schedule-table">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th class="p-6 text-left">Time (HKT)</th>
+                                    <th class="p-6 text-left">Event</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-100">
+                                <tr>
+                                    <td class="p-6 font-semibold text-purple-600">13:00 - 13:30</td>
+                                    <td class="p-6">Welcome Remarks & Challenge Results</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-6 font-semibold text-purple-600">13:30 - 15:00</td>
+                                    <td class="p-6">Winner Teams Presentation</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-6 font-semibold text-purple-600">15:00 - 15:30</td>
+                                    <td class="p-6">Coffee Break & Networking</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-6 font-semibold text-purple-600">15:30 - 17:00</td>
+                                    <td class="p-6">Invited Speaker Presentations</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <img src="https://csse.szu.edu.cn/staff/ruizhenhu/index_files/ruizhen.jpeg" 
-                         alt="Ruizhen Hu" 
-                         class="w-24 h-24 rounded-full mx-auto mb-3 avatar-hover object-cover">
-                    <h3 class="text-lg font-bold siggraph-dark">Ruizhen Hu</h3>
-                    <p class="text-sm text-gray-600 mb-2">Shenzhen University</p>
-                    <a href="https://csse.szu.edu.cn/staff/ruizhenhu/" target="_blank" class="siggraph-blue hover:text-blue-800 text-sm font-medium">Personal Page</a>
-                </div>
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <img src="https://pengsida.net/images/pengsida_v5.png" 
-                         alt="Sida Peng" 
-                         class="w-24 h-24 rounded-full mx-auto mb-3 avatar-hover object-cover">
-                    <h3 class="text-lg font-bold siggraph-dark">Sida Peng</h3>
-                    <p class="text-sm text-gray-600 mb-2">Zhejiang University</p>
-                    <a href="https://pengsida.net/" target="_blank" class="siggraph-blue hover:text-blue-800 text-sm font-medium">Personal Page</a>
-                </div>
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <img src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=dYLKTPUAAAAJ&citpid=3" 
-                         alt="Jiaming Sun" 
-                         class="w-24 h-24 rounded-full mx-auto mb-3 avatar-hover object-cover">
-                    <h3 class="text-lg font-bold siggraph-dark">Jiaming Sun</h3>
-                    <p class="text-sm text-gray-600 mb-2">4DV.ai</p>
-                    <a href="https://jiamingsun.me/" target="_blank" class="siggraph-blue hover:text-blue-800 text-sm font-medium">Personal Page</a>
-                </div>
-                <div class="academic-card p-6 rounded-2xl text-center hover-lift">
-                    <img src="https://placehold.co/150x150/e2e8f0/333?text=ZY" 
-                         alt="Zhiyuan Yu" 
-                         class="w-24 h-24 rounded-full mx-auto mb-3 avatar-hover object-cover">
-                    <h3 class="text-lg font-bold siggraph-dark">Zhiyuan Yu</h3>
-                    <p class="text-sm text-gray-600 mb-2">Zhejiang University</p>
-                    <a href="https://fishfishson.github.io/" target="_blank" class="siggraph-blue hover:text-blue-800 text-sm font-medium">Personal Page</a>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Acknowledgements -->
-        <section id="acknowledgements" class="text-center mb-12">
-            <h2>Acknowledgements</h2>
-            <div class="academic-card rounded-2xl p-8 hover-lift">
-                <p class="text-xl text-gray-700 mb-8">We thank the following institutions for their support:</p>
-                <div class="flex flex-wrap justify-center items-center gap-12">
-                    <a href="https://www.zju.edu.cn/" target="_blank" class="flex flex-col items-center space-y-2 hover:scale-105 transition-transform">
-                        <img src="data:image/png;base64,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" 
-                            alt="Zhejiang University Logo" 
+            <!-- Keynote Speakers -->
+            <section id="speakers" class="mb-20">
+                <h2 class="section-heading">Keynote Speakers</h2>
+                <p class="text-center text-gray-600 mb-8">Distinguished experts in volumetric video and 3D reconstruction</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="speaker-card">
+                        <div class="speaker-avatar">
+                            <div class="w-full h-full rounded-full bg-white flex items-center justify-center">
+                                <span class="text-gray-400 text-sm">TBD</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Speaker 1</h3>
+                        <p class="text-gray-600">Details coming soon</p>
+                    </div>
+                    <div class="speaker-card">
+                        <div class="speaker-avatar">
+                            <div class="w-full h-full rounded-full bg-white flex items-center justify-center">
+                                <span class="text-gray-400 text-sm">TBD</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Speaker 2</h3>
+                        <p class="text-gray-600">Details coming soon</p>
+                    </div>
+                    <div class="speaker-card">
+                        <div class="speaker-avatar">
+                            <div class="w-full h-full rounded-full bg-white flex items-center justify-center">
+                                <span class="text-gray-400 text-sm">TBD</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Speaker 3</h3>
+                        <p class="text-gray-600">Details coming soon</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Organizers -->
+            <section id="organizers" class="mb-20">
+                <h2 class="section-heading">Organizers</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                    <div class="speaker-card">
+                        <img src="https://www.xzhou.me/images/portrait.jpg" 
+                             alt="Xiaowei Zhou" 
+                             class="w-24 h-24 rounded-full mx-auto mb-3 object-cover">
+                        <h3 class="text-lg font-bold text-gray-800">Xiaowei Zhou</h3>
+                        <p class="text-sm text-gray-600 mb-2">Zhejiang University</p>
+                        <a href="https://www.xzhou.me/" target="_blank" class="text-purple-600 hover:text-purple-800 text-sm font-medium">Homepage</a>
+                    </div>
+                    <div class="speaker-card">
+                        <img src="https://csse.szu.edu.cn/staff/ruizhenhu/index_files/ruizhen.jpeg" 
+                             alt="Ruizhen Hu" 
+                             class="w-24 h-24 rounded-full mx-auto mb-3 object-cover">
+                        <h3 class="text-lg font-bold text-gray-800">Ruizhen Hu</h3>
+                        <p class="text-sm text-gray-600 mb-2">Shenzhen University</p>
+                        <a href="https://csse.szu.edu.cn/staff/ruizhenhu/" target="_blank" class="text-purple-600 hover:text-purple-800 text-sm font-medium">Homepage</a>
+                    </div>
+                    <div class="speaker-card">
+                        <img src="https://pengsida.net/images/pengsida_v5.png" 
+                             alt="Sida Peng" 
+                             class="w-24 h-24 rounded-full mx-auto mb-3 object-cover">
+                        <h3 class="text-lg font-bold text-gray-800">Sida Peng</h3>
+                        <p class="text-sm text-gray-600 mb-2">Zhejiang University</p>
+                        <a href="https://pengsida.net/" target="_blank" class="text-purple-600 hover:text-purple-800 text-sm font-medium">Homepage</a>
+                    </div>
+                    <div class="speaker-card">
+                        <img src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=dYLKTPUAAAAJ&citpid=3" 
+                             alt="Jiaming Sun" 
+                             class="w-24 h-24 rounded-full mx-auto mb-3 object-cover">
+                        <h3 class="text-lg font-bold text-gray-800">Jiaming Sun</h3>
+                        <p class="text-sm text-gray-600 mb-2">4DV.ai</p>
+                        <a href="https://jiamingsun.me/" target="_blank" class="text-purple-600 hover:text-purple-800 text-sm font-medium">Homepage</a>
+                    </div>
+                    <div class="speaker-card">
+                        <div class="w-24 h-24 rounded-full mx-auto mb-3 bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+                            <span class="text-purple-600 font-bold text-2xl">ZY</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800">Zhiyuan Yu</h3>
+                        <p class="text-sm text-gray-600 mb-2">Zhejiang University</p>
+                        <a href="https://fishfishson.github.io/" target="_blank" class="text-purple-600 hover:text-purple-800 text-sm font-medium">Homepage</a>
+                    </div>
+                </div>
+            </section>
+            <!-- Acknowledgements -->
+            <section id="acknowledgements" class="mb-16">
+                <h2 class="section-heading">Acknowledgements</h2>
+
+                <div class="glass-card rounded-2xl p-8">
+                    <p class="text-xl text-gray-700 mb-8 text-center">We thank the following institutions for their support:</p>
+                    <div class="grid md:grid-cols-3 gap-8 mb-8">
+                        <a href="https://www.zju.edu.cn/" target="_blank" class="flex flex-col items-center space-y-2 hover:scale-105 transition-transform">
+                                        <img src="data:image/png;base64,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" 
+                                            alt="Zhejiang University Logo" 
                             class="w-20 h-20 object-contain">
                         <span class="font-semibold text-lg text-gray-700">Zhejiang University</span>
-                    </a>
+                        </a>
                     <a href="https://www.szu.edu.cn/" target="_blank" class="flex flex-col items-center space-y-2 hover:scale-105 transition-transform">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAA9lBMVEX///+UAECTAD6SADyRADmQADaQADWPADOSADqOADH47fKOADChOFyNAC7//f6NAC2LACWWAEOMACmnTmr15+389vn58PTmytXt1d+sTHCeIlPw3eW6Z4f++fz37fHnzdekMF7ctcTJjqTkv8/UpbfBjZvQnLDYrb7ctsW+cI+aAEjx4ejHhp++dZDjwc/KkaaZF0qmPmXCepavTHO4aYaxXHqmQGXYpbrOnq63bYaiKFu1V328aIrDd5ahMlq+fJLLhaOKAB2sN2qHABOgE1SYG0nPp7K9gJOwY3utWXS4WIGkR2TNjqjAa4+yR3anJGCEAAjYu8Lx6+XxAAAgAElEQVR4nNV9CVviSLdwUpUVJBgMJBCRRZqwyaaggg09vvTu9Nz+/3/mO6eyLyBqd8985z7v3FYhqVNnX+oUx/1eKBu21eh1R/319eNqVZvqRJ/WVqvH63V/1O01LNso/+YV/E6oXE4+f53VdFWVREGhhBCe8Dz8D/5FFUGUVFmvLRefu+PKv73UF4NmWM41KeUlUaGUPwSUKqKUL/HrlmX826s+Hqzu/YyqCtILyEUpUEuW84VisVQqnZ6ewn+LxUJeloGyFCjLPiaoZHnftf/tpT8PdXu81guS4BKOCqo4aFa/bEeTW+cSZC6HQlfOgWxeOreT0fZLdTMQ5eDTUn7QN23t30biAJS791NVYLJGBblY3J3fmZad279kLWdb5t3DrlQENNn3RLl23839wTW/AIbjH0AOb5mD6n3XfMGXzcl9deB+G0gprzrWb1vna2H8uSaj5BFFKg3Of1ovJ0PO+nmulyT2EKoOtpe/YZWvhmF3pYooTDRf+/rUeMOTzKevU5W6qqd291/Rrta2lmfoqaUfHav+xqeVrbvHU9ndrub2P6BcK+ajyMgn8me/TEMYk+8EZZKKwnXjX/Z5elURBIdQWTx/0VIq3dZB8lTMtSxRZFZhMX7jGt8AZXPFFIMiVp9eutOtpcg/vnes4d5PVEZLF0fxsfFW1n8lmAvwNWEFpZnzCr/SrlEqD+Zd+Kd1O85EIeesigKqZ3LzbxiP4UJBURH1mwy7N9xPmuAjG8rLLqdqc0oHjx+yHIPeggCOvECv/rRerbdrIqPfeYaUjLePz8uOOSV05y/7SlInZiaja+N1CXdSbnbfst6Xgtaqof4U9DT3aMNRTZCP4NoeJbTqf846bfn/em8laWkuMD6hUvPPqZzcFlUAzS8zXnnx4dN56ccRD/kk8cK9L37lVWBoxqt7J/FRrdVEL0Chkz9jObTeABiUlzZ72WbyeMRTtiIv3vk/DbfhX9pFodlJftwVCrH2Fn/pWKhcYbCjyNuE6Bu98CPN5x9Tv1Z4JUBk3A7/Mi4Sepr6vH1TQL7hR7/dcPTczVzGNzPXWOvCLLDh3SSfpaG8A0sTONfRL8x5whez9NcJe/PsJSHLy6EyYhpGasdUibndgb4jwmDkyUlu8fyT8jyZBlsyDzXW8O9zgZdcmnZjBMuNVAW4h+/+xhDZqonogVYTGtS+sOeo7ohUc9w1/f2shTaLPK0FP30J/9A1WyovfGHPGTc7F7EvzVwyPm9tXwnOAPaQyu0sjbZeMTkpuPZj/Kzx6qo8nfk/VB4iDypbOiDvkrdbmrajm5Xb4lvE2u+xG+U5cOheOTC7zkZi3scItj337bmnvRd5IcDL+hD83ulwuSolovuWhrqZv4+h09uImAb4HZxqVCXgEPVmj/eUu+aMrQjeB5GaoFW3z7HpQuGlif/D+Nb/V30N7HkFgjhiP7Y2qdfZCxk59eaXm0b7BPdOj3JffBtHsNX2UkFWpdeGNX/med8pXwi4oRXsx/gJ/nMr82THfrzPYscRj7xU/cWOqlkDB1iKGdzKthf9hH0P/6k7OlJaGHTXz0TDgGE+WGOYJ/0b/zUs8XwJaTQMnaOo8u7psBhx80vjjdZUgXUvottm11ShHSXjN6bhjDnPAh76jDIYqXwxwOu9z3LGPft/A8Ln0UI+hXt4N4+wpT2DdwjT2A6/DRywBaQQcye6wmC2++smsrUdz2qPq0zfnR9+ZK4milfev8e+283NXSYBiyiiH3cdefz1MkKz3E2B8FR53rE4ErqAIOU7EYINz6+Mcr188bQOyToM9GcX/B6iPhNf2FVRcTEzn5KP+AmmBOKOTlTqH/I1J1xBvQ0uESUp//V1MAHlpQxakd/0HnwezEVsR6hmh1eSoj5nEuuda2XbumxNOgFvtL2XWANCBlb9OsqYOqHF+4iY3Emob35F0Ki1wY8QahFMLm4GTI1UEgp7PAr/bc7kr8/6yPWL8eWl5XktZa3eG3jOSu6M8urPRkQfVxYo3dVlZBktHVBUfgGK7QIIdVSJjpuyMEd+Ma8SZjcqNuXO4GUucut8ITZ9GkFoJfSjrh8oJl4ccZXoM3sEUJTfjOIEtVZEMVf6Iv6GsdMqocxGMf1pvyybqw37G9lHwAGE9Kvwj2OQOnGRZIreFFCkb5TFLshgFEHtffsOnksHuNtb3jV6prf1jX/e9jKj++ihmDvl+dPwrRczBbwN39/WAta5ZIz6Jo3q0DiCwH3AT4g1ek3neTcN8dMTQIteDS/eVLAum97qB1SZhb8+F4FWASJmGC5f4m7rb7CLLTATQi3lO/TBgVMn3FCSCoxFbNfF4sbyKf3wa9z+viiG626phFdDtXOxC6mGskinrw6KTdghZZNOjRhLYA79drGYLwkKm3GCiGrGbnN78Yt8/p/FauD22TXAYhUq7sqMj2Cv4xpfWcCxa8D9g6zcj6mif420dX4AV+aWX+H9F+3er8uh2HyoI6+BR6eRZQwVOgg5hcnM8lU1oRw4f2QPj7cx0GDSZw4xfS3iAn5lyFY+D2jWlZhMhDCXIEIOGbMLIZtYfcXmltewdYVAFWsxaaxcg8kIdHuDyMdkSF8Hpg4IrCO/MKbgr+mrcD0jsNhS/+X7CztFhFHwvU7cstoKvMY30FfFWov7HVCvcxqKSjMqZ3ewuYo5DIJmrgz+ziv8Nwd8NekmoL21S7hoyBuSGz9Yf6UC/7phBL/KGYfAF6CKaZopfdE476GhKEZL+pUmdQOPEJg8CS9UqA0d9VeQ6Koskw/QFvBqEZnYnnUSHGKdf9+cbLZse4z+ZnOyHzabOcNxeDadTjepYqi1Qj0SwwfcnZjeQbBxtbUXZeByqKCnIavfiJRPuA4GhKl02tLG35L2spUXKaUKs6P2QKKHQWUlC1OnhFChlHTByhNRXMY4BEgo3Lj/HAZ/6PEgrLMXaBssKvByuKGjPFqHUfxD6O9QfTlKpoQ6bh8XRQzZg54B5jujPmGNRilxMmdn0ZVfEkIK3p6aoc18Qs/8BaLoqISIoW/Unc1wofIiLm5XIi/VUtzvFAkfYGg0D/ftIQiLSoAhz6eoyJVv3oc/1G8g/L/xpeIkKM8xx44cLYoG+DJCaGEu+ka5i+UYcRljyIuSdJPi/Q7vLfVoDClSwhwQ/8cUJepmKOe2AkGHz1zGRg3iDSwpK5sj+bQOSiT05D0YTxUsiUatwjhmh11wSsFKX4lhBhUjAKRS/KKI/fWULy18IbnMg3KfH2cVwVAQIXhN3WNNayVgdStMNtvf0t5gQME3YMiT/fI0BGtfYCTUjKfrkWUM+4Fd3B7NpwbgId4EP06ClMwNuE+kEKTXMrarVQrX+QYM91MRvEVlBi82nL/nScuSm6HJOCIVrl0JwKOBThlXg7+YO1QH4vVeu+OEFHwLhkCKPVS8aFJCW5w9X3cyMt5mAUxGWnDSywQ9Gkab1vSjr12MB62lozAOTK48yvhm65REF/56DCG+z6ZiNw+PnXybx3kxUERz4FP+2Tp4HWy9uPC/A76M78aXMeFussrP9GaZsYIYBd+I4R5Z3AgiuW4lyffed+qME7ABy+cwHOE++M8oV2Vsn2OUHzFEc2usURYyeCFOwbdimElFpzTrZhQrWjNf+MYYZTyTmRqCKQx9g/mPFdbLxKs61vUY1K8kEMW0lklQ8M0Ykox8tjnOCnTtaiFYMBgTOjscDUNQqIR9PB2kKaAoV50PwUcmyuYi9T0nQcE3Y8iTPbKYgFw7r1Ddt1uY8Mhn6YgAxkCyUqCGkVJaB70ZgQ9fZ2XUmFMUfDuG8MQjUGydMH8yyE2PZPjegSCj/FVIF40aTXgIyU8CjZVWAmkKxjAkAbwEwyOoaK2xzEXUat/fdA0VZTIXH4ExeDPJ2AsZXYLXC31XnjUz9X1Hz1i6jyEVSARoxlbsw/A5KtbbUySgQCYXXN/3SB2FkMF+Iq4oL23Tv9ZGWNiVm3tydlkUDDAUa52IO1wepem4H8ODVNRaOxUbpZU+4mP5wleuKvG0Tgx6oFWC0nPMTe8Q7NUBy1hPN89lUjDA8GPcOhublGAewDBTo7owvGENi7Q2ZiylffPp1irCSvfQonIG6PtRodaMcau5Qb9bPn9M8XA2BQF0wM1YJRXbSQaGFdaLmf2UDCre9kCDSqy9tTbzReZTUASYKXsl0RSJ36kDr5SasU8ZM2zyKKTSp3soiCtfDrlcLVk2ycbQSpPWp2IyewLkW14tUQBpfm0Epdpe3g/sYLPIIJuIgLwUsPNCUBMNI3NKhLvkd/ZSEFdQPC0R+TQGpQxMaOm0uN+oZMjimHW4q9jeapUm5s+/wW1rFVaefNWxVSezi8AGRVr0/QFLJkSPi5DWLqV8mf0U/HWQQcVrgReUNvodRilf+oGe3LYU5HYdkESa5dhgS2tQlFxvMNjynBtP6TRqycrZIQr+QhRPkygOdbp2NcvTqduoXFEiAr+jWC9OwbBGQ6pZfRNEX3U/VnZ7I7VFMoD+ExRkKKao2J66CDYGbZdYT1HdcifzNN0uxnXyQR6S464sro1hhatYhqwrWUva0T9DQYZiUhYrVbaYS7/ZxYqRDKOoQloHg7tT9NWR8Y8GD4FY39OnFtkeEU38ThSTVGwx19HwjfZF3EpDKExXyfWOVZ7u/B+ukJgW8KDc9/86SwZmf46CDMWELGrrQ7G8UYxUxnz4LPJB40aOMLuPfSa8a2/qJ3ItbmJaf5CCDEU+Xt5qNA+l1R4jvosHeAopwGFbZFnl+hr41DvW0s9XY5//sxRkKCaoOPrfyBpWDLuRDlZZFJis1GBvtZ9prd+UXCa2QJ/Krt1/+isWFP5pCjIU41Q0pqq+OTsZ/J1l+YagaxJs+gh6JqzSjbz96sp+u8o81q5zJAWplFf2LzgV1NN9vqn/gTgVW2Jh+iWhgDSfDiORF66jf6mA0ylF1GW7yXamXBW9JOs6un+t4+wgXU3MRRaKiJw0EP1okeBB/NKpvNsNSqWCfzo/63sxKtYfOumj+189p2QMukaI/rUr8WI/+knnitHMngLmCzyKF/1b6TgWLYK6G2fE9SAivOrAImpLHfvCB9Vt+9LTAfblZLvUpX0olp7pf6os/Q9ANCaFhXBOuxeIGM++jF0L04W9IGPOicQUR1IQAh9Mv2cIrNoZLksGVy61ciOJ6pPkyXbDmuv7UOQPNQxY3TPpnfdvMInR2jGQimYf06ifgz4dWP3Qoh5LQYhDkUtqKZ4j0gU3KQKG+pC7LNYyc3+jfYXVfVTUbPNhUJBokEtsEJCS0MCBuRfuvX8nvGsb9k2YhS7Q8xT0/y6xmPSHHNSzfYYlF9zlKWC4s7jeKTtzEbZBjz5/RhQm+/iUJ9ECny+Hdve+JovuOAePUMaSEjH0CsDw5f29iRzQYdBBNzZA26/w7gWpIOi6RHSdd8up5pczhOqm2Zxi3yYsYnDBWX8BhgOTc/5ysMlaVU2uMscdVyQRNeZ+DHlSDKn4YczVh+b7geqNGhHk2tJPx19BqBQWj2HfTz0+HH5N6CdtIcqBX9vLEKtYOUaZ/DQbpon/8537CkJuaNvWeI0o0t0FZ/8PMexxt/+zOW2lEAjnzNK6zKwWBj5P+zGE9wVKwZ5N7leqSzwqFsV1z7L9LNRtPuKGmvCDfyiylar3D6e6T8KhmtbkpBapGZ48c8yjitmjZsWlIUQut4Uhp+lC/hpVQx5W3i5JJVAQowDDWnpLad73kctN1SUelaZnXv/uvSd8WoHwBV8QgSdkPz/RVQvbRDKmE+ikfloB0NUsxDor7ozBLbb8XZfBUqAuNbmuAmKzfpwYXJ0S7Ci96LZHVgRDMtulNzU0bG3JnRPz2A1aQp58GwHs4NsLsBW87gvldrPtPt08PI3ttL9XTqeReHH8GP5SZU+sNDoPD/1Jh22gZrdGDw8Po56NBnaIhhhM7S1/wZWBU7tBKRbT8VKg+wIupY+99DvpMije81TYfOlWIEr3vzr/7P0D4mC/d2o4o3Tjd8k/srfkGj8n70fJUlYujWF+hGnkAENUAmZVlkVBlIpMChyhIAkCOC0K5lEusFcM2OX9LscNqcFNBh6GxkYsFMIaUmAtyD+smSeB4YlvYozapudu5O7Cf9C9p0hMEO8zV74sEtqKYUQKDXjPjzY48PsxxOxIRFBQIWtsEAECU14/BH+tAjD/xYCgo6stZxVuXC1z86IDKshudJtSdWyuaz17iM1u5tJ/EZE1bpT0/EIMubUnUb3aN3xb3W6q/gFxu0mJ19YFcUWQRQy7xOudmQh+t3oa9rKmMMwDXRrFyM/gvPdU/6cS0iekMB7Gu9iBuLW4MQW9eQsh2kIQV4MBX5ApKrjbYoGvbZqbVSTnCJumJakYwfDWtdRWrfZQvXW6X6gi+lxa/6rwsit8oMMLyYE+RmfgzmSZXoWOQRJD7APTFkL4C2wEuQ3UYAnXEZbXBMCogv0SzYeaBBs9qlqOjol5bIITcAVjJNqgVquRqHpGxZN4b4ihxhjMhLhkCHoVDa4YmEtgQY9yoK1K8WaicmejsjEG8jwqigkMVZSsUTTkKZpuS68L6JdGMTyvc+U1tjrkFXGrcX2ZV7Fsl9+tHq/P72CpWmMMptSy7LuIkRU2RpKKEQwZjKeU6MaYMJLsAlRAcVO3s7cUMY2Mfl1GPyLWRnHzFseQUfAp9uoi7MckUBJ5/M5jjIZ1UNt0Nj9RwUFeoLyCK51RYrCmkW0TUlRMYNgSsV2xzjlTWVKjR81KIGXscQVeiZSjyh02ooGqdJJM/scwVD/Ab57i7IMnCtsBhnocQyyXaJ9FbEvr4TSFM5xNRD5mtaJZStTOMyo+qVHOjWLYwQMJrM5tTUatqFsNX2EHNW9lXgqUiUc/Km6e0kdDohiyHPOTysegZEcUvZtAXwdiippG24p0iTTqcJWT5QdQmUq7XDaGVgerjEan20d4n6iNMyo+heIQw7Cbxz7XzMwbaDnUfbgk+af3u581FY8S5Qd3WbFUBENWtnlKGo9iBENCWZ7ECVQt2sH6QhDWiGGLG25MVC2EVhdNUsiXYCnO/woig+RzkYpcO6BiDEPs3NezU4sPgks7iH4Hnj6pVNlR8JNudndYiKHCEFSTPiNqGh/DvJvNqwRElD6B0qPM5TKnY9bwgMlpQhWwkRKGL+XqJo2dyw8nsHcTn4oxDIcFmj7V44LjejWVKiW+RzPEOn/N2deQEmAooxZtpxNH6NN4cqj6fVVG09sIuuhMBi6GY+AqE89sfkVjTkV55rgrsHvzXUHMCNBEpCIe9UxhWF7tbfRqSMyVGTap79xwjYJQnMf5M3qM0sdQQAq2UxREh7Fz6zriangwubJVvMmP7til93iszgYO7bADv7xS60dfqVlX0ywUZyEV45qmvfdgfGPAhvzYAxL4bKPT9s+nv/uTXqhyR5G3exjK82wK4rtVNkuOiLFWVoeP+F2IoaMPuTGWWyFYiYxE8cGSM54tnARUjGPY2tuOimnu5pCzRBIcX2DjnbSyfTvvf7gcGmC/rH9SNGQUnGQtIsBTcP2K+oV3nMJaho4PYvgJMUSL8V5krSGa0WJvthz3zGw7KwAWlz4V4xgO9x7OM0AABzaGv5J/mDqSULR7ztPTu3s9mglmGDIKTg4lb6nXqm3eNwfNCROS4TKILBHDCW9xY+UdYsgmKbX1Evoc1v/yIJF1TLZnPVecGe6Rz6RPE8Mqst76F4UoFnpZQY4m7l5oZbNZjFbuEcMjKOgO1rlYE5ESKhJ2oIZpaR9D7YqYnMm/w8AeW1k7Bcrcg8sCTr0cucf/9lGxCw+NYWj1H9bXzcfqfY6rPNU+flyHLU1b8LgbqN0Le09FGrFD6oDh8xT0Sn2sV4z9LLETjAGKiOE5BWsx/cyMGeD/VeAJ4bDbgH1eQwuW+WyXipISw7C8zheULbYtVhZFCF3UUtCgthV5tcf1hcj4hhQ8RMsbuROJUVA6hKDK4pnLiHIRprhNOY9RAcP6QumBZcL4Ij8DgdhQD0Pm5ObH+/Ol4nKIR67iXPpB7ru2ADN0dHN+JvhkeZLQ5K+pG+Zkw1PU985t0BE7SEFeZr7arR7zlBVkEnvDCAP2sL4QW+C1gSJ/Kr33+qEQQ4dhiMmVrrzn8YyK7U1swVUvuK3j6SdkZKfp/QUeI444sF/pyVoBxLuGUO1MsgxyuAJ2/qGT8Excr8OqIV2FB5BDdA2+Dy64J0yO9pBgDEPm5uKMKEfNeHZIxfOYHPphAzC5Xynzwl3YMqHPrQgv7scwBkMzi4KxfClroDb1pKIQq5r/e/BLtc9FYOWvxZZxftpgKSN4iubjhcXbyyAoS1UwkIqxiZmOn1y7wTOvzLhdemnhSxY21WCJWcTLCNsqGtdNUZDEMprIjrlpWhO6SeWeDqq+iu09d9ixrNd4echW5mJ462I4YnOyvKc3M6hoaNG455PntOVAAQsuPRtehdsq8vSam8LOZ2B4ef+u00vNO+4oSQRpM5IvZYqoXM1QhIQwu9xVISLs9DYSxvh4xgVMv8ZCSFIPMPzMluY9frZOKR2XIQK48zDEw2HeuBHHc3PsEkb54AQqkc/XDfcL9eF8qkw/xlO8lpKiTjRfSgq4I/NMPUhZM10dD7RSnWAvOX6O7CC4ZbWeCA0BwyC9RR/tdPUqHzsq0PK4FJMLXtulP3A0B1H+IweMHsqh3Vk8hlWBtZTogFukFl/ooiB7wIZ3WYVsTSSwsjJ2WeIFAvoF98HDMIfYYOXCk0Phc0SX0h1npaSaxrombHeNdYhbvGGal/4guPop8BiHNtYnUfXjoBPxQ+vrQgzDcsrVECbRfCnm7upfso01fBZff+kV59SehnEFr3Sfrt3KQ39YdqlPN91q8CWiapyZpCI9ieUfzvGUrgbOg3cmaEyCpMwpT1aIoer9fIlVrigY09h4wFS+FJPU4zBfSifu6YU9IK9tI6jrk5mLqyR5zxTpzksiUikSimChIEnFhF9q8/eOc85mDuGxnvtCSfF1LdiPGnJpyfu5oYKK0+rlcrlSubhAL79bPYQhUrAezZeS79/3N18AwT6GjbLpnvasLnfUZBZ2RcZenPS8e3oRJ8VRpcNZN+uHJ7dGglBCGoKm8S2+jSHY5bp63dzpj9se0N76egBDpriuokxJwnov2kZvPW59j7CLIDIRV9ltA0SQ2NekuLugYIrFGkR3LhVbNBZCMV/CcTmVeOqOySFYCx9DA+u/5YtOTZR8cYxVhOMYCm3s4o9HGVT/WKvh6XTwLja6O3R8834KIQZED/pUz5JRunacvgA70P9wDXHD9VN/E2MEIUXFdPRUv2iMhxlzY05Rl9YAQw/xutdAawyCTtrz6J7E86VIwXlc6ujGsdkQAe2LuqiYa1WUmpMc96QuO05rDLCNhLae1OGBQqxJKz/ga30R6xe5QYyKwjRBxUPxYQzKJRw/Ccq+5GPvZzxGgcVYRDcmiqGYQcGgv0PjPqMSKg/PFyjNT0EzUy480Dz96Pl7mK4Gn5VO4e8VUcCzCZ24481mAFkhFY/GsFJCn6ZJ3SJRiGG9fNkdWg1zfNm7j3nxEQxZH+NVUm9isqDx6dOn7Y1O1Lbf3XouinPLNHutilu3YIucNYw2HgRERka3/IvASipXktBwD2ilqGjvfComMNw/1WhYQr8UzFHRzzc+ni/Ozr5/P9l83NSmU51XpE3Uxw0xzKSgq9q3fxWLKkSQgu76Q9o5KhBd1xX5NpxAgMFFT6a8DrzKitZdWcGwxCTyxK1KH6BiHEP7w14Mwb2F2AJ2Ne/X1pqSoriqkF1dxEfOX8QwZJnkq3QgjBlhu+M4zmQqYKCmmXiiZdxUau/gtz3A4J0niDj3siXXHBNPtiJ/NooEqWcsReyZSKWiBFyIXRMyMBzvPQOE8RT48e8Fr/wO8COwx0zxK4IQKwj4GO6hIBhWn+K5FYsynAErr7ZKgWv0yVs6BvKtPMSbzAPFzSi5uuuLOOB8DzWG4iykYhzDnj6/tSrlesQd9xuc3JJMO9IcfC2Kkqzmi0VJH6ya14ubaz2awvEwZJNVMyjIszKk3et9+nmnK1u0Nyb6SJWtXLUajQayQ4cddpFETA21CsCXoO4Im5NZcN3arSTgqlO1+ygV4xh+kkW1WBzMbiaty8YQ8bT91hlsMmmh3gpq3NfT909dZ2yxwTEXlUq5/C2NIWsv3mZm29Cwfi6ppVKBErHqcYbThM2YAuiWiyGtTeaniKEKnqqmgNlAPVByMZyLBc7P2CSpaHt5gkTOm7EFtnBK/HRztpg/VX2+xSxbgzML4UCbb6ne6dsUhujdaleZCLKaqPmu0+l0a0RteuMXrDaYshkADg5xFEDQ4Br/6yGGyxynDUDgy3j4xW3SuheKLntloOhTMYZhfa1KeOOZe+EZuz6r6EdXWwHzpZZAhC8eD39IFXHqSYvP6J1NwTBI4bQbeQJKvD5ilzZYqyvwdJlDBRhitXuM/WwteQYY7gg4VoxqmKWrnCmIYXbXl0/FeGVm1x9dNz9OwXvCK8Dwc/74XswIQ1hqY/niOAsKGDIK9vclhAumYVmN8fjnp+8grNZkJ0vi1dgw9fe2ZVnjca/3BTC80jjnry4ej1tWMP51/VuRp7j+qYA95nvG2rhUXElRDC/W7LiyPXbu3t1XV3whLwqeATCWrG6Btad9p0NTGGJCWpvvzXgT/WSqDxRBVYFtzqYy2hyZ39SEaQ3+T6f5IkgRdil0T58wxwYeU73EKhe5JWVnyB2JZUL2ZIR5ZoOsWhTDSiRnXa8Yw2Hr3D+bh5UZeCjWDwd7Soy4RRElnNuMGAPuTyeK/M27bqfTu8wEp4sVGvEd2PfTEQ60/KxxdknAJqaxwkvo06wUtIrDzb5XiEhF6xmv7R9/UqXO6oesA3r/6YxoudtYaIcoCJHOws5qPAjB3hEeG5UnSLnpEY8AABOCSURBVENrCjg5BVaoOhfZMR67SHF83nh/GM1qF08HWyC1b54fZ8os6cPq+KmTkyGGHyIYWlz9JmUHIxnNksseuQSEWKPXhhh2/6+HF2XAH57yTY7l1tgkyCuRuUvXQtbTQypeHG7y9BMxaA7RZIFmFvYObh5uvke+qWWYCRJmogiqwfL86/flMjay7PvXr1++fLlB3/BOYhgaQbPkDWvchuAJpXB4QgW0HGEyK/L0KBWPm5aEzV5o7cxoM20MrNZajPttaQSFdZgvZYw2KgpCrQoY3b8LYbsUBBF9uo5LwwDM6ewC+ZWyoUaOzPTMVahJ6fV1SumIm/3RRAwgVGPNXuAR8sX0ny+6i5qEQxcjB/ku0xQkjUjX0znLtdEzG9zEqJ/IaRVH5fPwpI4QPXJVv91gdxTWMCkyXlPhE7ETfbQGqdRHJF+qVWKviWEAiLldS4hq0SOU5l3AZH26dg+vECrNwvxiKptNwO37J8Ba7rBmVeYUmCGMUVNfFHg8be0IoI6G1riBzaajQZ6yYT8ryqy+dcos813EZSM7bMtLvJWGklN5iDbG9KJdB6xq4Z4MAnb1fW8NYzRj8tW7y5CKQu0hSM1l9AijEx5mF9CXAG2JoYrpZaQUURTlWYV5ZRhbOVg9WdbEZgXdGHgctmtpEmEFhyeJJQl+RNI0RMxon4/kS83YCAhtXou0AmH10KW2Ezlt8W3x6bHE0IMIQKi2cVFBT38qX4pEuywEq1EarCUNi+Zms7nZNGfVxed37yaoYkBbenKIaUM2kvETtiZOgWjlU98nZRwc82fYw/j4eyNeW78ZN+X3pwPHV7RfBP/EhUV5euZ9Z+xePQjUU3YjtzBTDlRNEkO1jdXrYMeZ4wB6CzW05k62DE+vOjJLB31yl08YhjJiaLDku/iBLYlheBrDBkuivTiKIYb1pbiJDf0yVFry+BF9Ni+AB9EJvBocCQasIVYnD2m/IY4hGxZeqYY+MnveSAJBs9yLmiseM1VyNmbmCxUXK/bRC//fOF0R1M+cNfUyDItRbMAXHSYrkiGXjnVwuIuDbSMkat6fUYcejXtdDcuKBL17n0VF5N/DN8LDXJpPiHq0bkHQRy3fR8Ictt2POGF7sPx6D3CGEwqs+y9n1Q0SATG8czeE4sBL4FLCKo7ajrJcjUfDxPkDdldHjIpKkIkfuTd6imQ58jitF4ROPTk8HQG2P5i7cyksLpnSNYJmqsqPINsYEsyjYCzbAMQzC4oOvnepyEDWcKqye7exmMfc6zuR5UdUPD7fKxWpgmVpbUaZ0gM5RCdrndDYIs6DiFIxOBdU0aszlX0aKLkbNXDEZDASAx6j+l45yA4Z+Pj4A3rrwXm1enCOexgoblLYIgUT6RRBnyozG8DsdBnAd+wHF/rY3Kp9Fgnd7Qbs2RXLsllelTsXmLMwFxlbpdoUElSUgqGVrauKMV4rbh2ASnp1ZFvBjWjATMXA9wFuKflYvPf/0XE3oG61i4E2bXgFbILtBOVFup+AyIfHAt0ITKcEYGNXDVbysVOhKzNGb6T8bkZF3/TLYZbavb1Fc7ZN7yphqUj8rNq4GB51ci2iz7654JATigbYxqlIT4K9GDPHmxSAy+pXyb0WYGnK+tD4yXKTBi1mDCpL9Ed/uj7NZZHodiy77YOEnsCYUVGKhOvBq4bmmsgiK+z4TAoqTw59HwgzlC+plfV7naZnG8PmOBN2kkgjLYOC4oc7Ai7LaX73uF5ftSctlmmz2xGYxY7M4f3yNRwjak4JxlBageDprvLXdIlOanpUVG/2OaWtzzNwL754sgUPITS0lXiGNMj92t4jWjPerV4qYjF6tR0s4yaLgphYHs+KWKiniiBKkqqyFpK8FAK2kLOxf7mx0x1t789qJG+ymALjYvDeWL4tqyNKWjAq5g8lXIzGue6TzcJjsWGQhfZC9RVUC9SqPV4X8t65N/5re7SLbNyY32ZR0KtlXN4Q7xJxnJ2F7QepMz3sBvliXsbMEXj2iNO9wI63dmSC2VKzmHo2HklFEb06PL1TW/h0upPjJ+nAuVf84+va9Oo+lNzdxKqEzQ0MGmVwADOallzXTzPb60e9WCqV9HOWAz5UFcZ3YFtBq0gEi0VRMrp4mVkaCTXMM4HheTDvY0V5OXoQqAwK5NQ/jtcvsmOLRCJn/rVu5biQVjIoiJDV4+g8N0eA4kJ2lA0IuBIELF1mnHP0qXgIrNlfvia3TyMGkMGjEub2Gyo7c6ozC5oJ5l+Zq6abjPvQJ8/QkGc4dSV2XL6lkuktO3md9fjS/oQZyLIzmgq8z6QYV8T7v8HFoWcej1eqolIdHbzza8+JblooPT6MOj8bYMuHQ9uyzNFubw+eD6CZGw30dcT1CH2+/GCdObyNHrqEtH51MuXlkj/UMvcdHhRPkbIZSv4T2tPWcynivafyqSDJBVmfNgFqA1VKmbYMEAsF1p6ouD0KJNVaxh6cjyUEy0l2ydlWo9f1s2yUhCM8PfgshsdrL2+4Z+GZc/kkegD/V0CSgu2DtzFcC+kJ7cj6iqdPtNQ1opaTGo56/GyFX4JgnIJceXDIdaqohORTagnUa3CRWPzb5c6uqJb+Ss5ROno+xq9AMCmD58VF1uQdD8BjE9KV4U4h1DUxqN/nKVGvW93kZdt/jopJCnImIcLJ3jkn2GmaT1suo0nZYeQkaCOV8O4Iym+Jb/0pKqYoeNHEOql6HeeqcLQFGIasu3W2ybE83tNwgp3bQVS+TvD2n6FiioLcU0HECEsYTOxQYdrBxa0gcMk5WAyGYiRK9KGsGSV4lH95Y3Jmwp+gYtoOWn0tx8aXEvDvZVHHg8QP66C81CvyhGQ6K6hir+K/MkYxDMs/kuLd+u1UTFOQMzBb0BqwBng2upcdBr8KLIEQvRcgtjUKn5h3ae4s7kLhg3tt6+mZ+r+bivs9mfKcpyRIFtNNMLYcW5CzS754q1BsWpSj4JAA4Gql6n693kxrqENUpIIY+idCwZ/8RcSCHJZzpEJ+X1sxUvCAqzZeDYgKQUwxL5JC4AFUAYv7PdbSjEliuV/ECRt4/JoXXO405FV6EvR+Kiqb+9G3lY/gzeV47SJYe2p0g8PMzW6jdbOfggcvrLDQgJcN+3LEBxc3jQ/MEea4GaLv/3Ar5VlKxYFQMe+akVG+uE6bzH1UVM+HnF31/iYs6pyfFsALDBp+pZUSrASXXk5BAO2Dr1DO/J3ACbQH7rG18AREwIjDPJM6+yPxSqhjkhoLzCB7jik7tD3wGRBM7fBj0Pj3wGnXQachljuusiLCZygI0PDSWnag5B2F0On+ed7afdQmVpouvZbUTa6Ua/uubc+iIht9HhxfwI0bBxVrehJtzsM3ZpyqeJaCCO/dFQUnfLRV6kavONiw0nC26Wd3C9+LbBZW+XqyN4eQQUWsIo6FUNUNsTrq4/vR4FoB1Qieppuk4sjnKcjhxcRxvdBWeTo9WCKey5FhTz038QfxMmZMbw9dhpmiIhFyTDn7y/0edl7y7EKjkKJMVZeTUe8xFMQFoyELb/fBAtDhi61w1L8UeDx9totrgc3FPHzRUJKKWJePnLEDQQ76g3nmQtiREd7Y79WKx71HURBxmm4boTN5H728Yg/g8BUxuFoGc2xddHKf3884FdHz1SKyJT1xF9Ef33Ha90i1flpmA/FfTEGAReE0oMi4QIj07L2r4LYLVd8k5BarqSzJGYY+DTEqogGeRPRjscEZEUkTFmU2bcAHdJTNQvjzCy5PbZWCQg0Oodh/a0AAYxFkKGDl8ni73raOa3uLUFGY4ZSqkEhELXPjSAMC1g9Hkf5D7MjkwnN4x1MQfK6/gs/igOQ98+ZjgHfpCJHPHXfRF0JARebe3kRISFbl2Kk9Ihrs2puQiDeRuTsvuv72Irhnjt33tL+7KwQ8zyGkbog+CnwqsvVGnU1hoXHXUTkrmtxFLHePKW+vAEvl4ymIByX9dc/AgW4etW5279oRd19lfdU7kGawa/xCwNk0sesPwFqWY9VsnK1QZsm5115gzO5dO25v8O487B5+DTAqyjFjz4jaY85fBKE1hGKxbLiCx6hxDrz0EgqGcFk4/u48piNCffoyACqyAX4xL4wAWeJ9P3STPFSBXVG5JX0tBfH+Q2F2tM5Aj0rYO/blme8Wi6CJO/HVo88W863Jx2HEb3MZF1u/T8XXURA9YHqgETgFeCRJfuWt7M4qdc8TPXPDzAjol1G/jX0I02PXr7xE/En1brY9FspNIXaX7EtAM7AFM35f7DlXqcpCFMC/t2tC7FNI+1fe7I0iIO+PCrPAxovna8/U6/ZC/ftZDL53uMr78zg4EKvFP3VWff7Je1aLF6w/c99aCrDVWlq8Ttv8aTCQ4/Yknw5AG1AUM661+O9BeY3dEc863CnQ2I3YL77P+1+AUR60zGs8lPISR/+8UqH+QcBhJAdyT4dguFFARR0TOP2b4MiA4CvdE9YP+Eys/Sfk9OA7HFijkHEx0JHgYKPagQaBenebNX70l0Ll7vMBS94T6KsNN4OuQtxTxpmgXRWkeCNeeF7ll8FaljJux/aAjfSZvkmQcACcsG+2JM68IYkRTO+3rYZhGFbvyFMfAZTHnz5lJBMsHE+62ZOn7eFwVv7ldiIGLhWzGRWHdLFGtAhUrPfLzWYzPfLAXwC9Da9K9GOKIS02Yy9bznrYJ6kfbMo4BiaMipnqpnxTFAoZg+Z/iHRPAW8vdAvqQBUJFVMcty4IpWwudRTiVj3eCl1K2fWVGVAerTsZmmZFwkGFHHbCX1QqlcTntMpF5KItk/bti+GVlFFnv3jKfIerRenbKYjQUV72KEsFlzYMEsbnu3mv9RSbm112Pjx123/f+SNHqu4GQswlH/uWrgwb/zYlEwLuFuHvjrULEzHSzaJNSJGVztuDUMYayxVeL3KxWLsoml6TQUvac4ouBeWRsF8/vAJ6UwW784+zBJWvChH94xtcp0QFFtYYH0vB2QBRcffe1l2/1/bUUmMgZYh1BuTWoGLFvWbsFYAXrRJxcZTrYOmg3gNNWqOKd/PlTGy6Sr+yFD96f/8aj88aOt2MjgjzrJnAJtMdt/jjwJ6JPC/tjskxtOXwoBg2L/mFnmvFO4zbosRPN81nMbOJCUF19yxlHB73e/1Si/sMGFXw4Kh+RDS1o3xwryvOZ5M/uf9cK17DwyeRCJ9dARxFWwrsucDuAG8euFebwyN4FI8LnP9y76l8jjfwqjfPMZGVh0UGP40JUT0MrxXqNsS38MK6BWt5OI/qwnbr0sHj7GpWP1P4/ComVenBz7wStDbsMBFnz3BqW4wenK7oxB9pPwPEGIbsXmdBPxvZ1lPy2zkcO3hAn2oOTjdR9Dd6avtgXGMXO7cP8UfljMYuOBvlvUMA5Q0l3qVDTh4HdVCpqJyn1H0F5X3v042bAuyyvHxxTuZYGM6wYU6sHniBxccd5fK97F4P0gOcVt7eOLriXUGlp5yuuUgHyd/5MG6iMhBuDrSWvhXqE4pXcIiTvXpsJCWb4zpVadvrjViThKdXbifOtsluoqIkqVYaotTnMsG4QgKK2R0vvw7YNhKxmqHSWcsHuPvJK10qw97trbmmQT6sBa6Mlms8THG3vIKfufCqKg2dZEt6a4NvltaHNe0vgDIqa16RPqfsrfPP9id2/ihZX7Mk8BhcHILryCvYv+TSdViTiq47Y5Yy1aS9dgn4ksz9a0Ezd1iCkDa3iT+U7c5KEEQlUxWuQfA88e3pPpGNExAqJpuNKaFNtmeL1OXfHI7yQSUHrPPbCehCBe0GTwvXac8+19nWTidpmzkShYHPfI4Y6Pobwbu8SLsqUryZx5iM0qWLusMuFvntEhgFkEZm024yxNFoXJ90E3SYUDU8ON8LR6n0RcHbpUp/SoRF9zbjga2FwORi8dtsRBZok5qEjU+l8yy1ULmNCWllflrrhtq3sgkubf+ej8QSlSxPut6aFTGWz1f/eOJ2eEOxUi/qN884OVprqXdjix8Xvd66jjJ5Juh0Fgq25YvTzi/2s48C64YqmIoqXbcOvH44/5zafevmvWlZjW7/cBhh3O0K2Asm1Q66Ub8R6mZTwhUoYnV/22I56y91y2o59mHFaMxPZDbilVz9IQ2aCeOv2MlNqKzcNH7lPhvj6zyeeyPydP5LA92XQ7kxE9w76PSz218lK/bTEm/dIYqkj/5N+vlgb5sFNqxHPv3xyXprHaPSmKxOceQpEeTFf6Z8aXTAj0ZCKmrt6+Qt+aHL0dlAZtsl5tfjf0N/7gWz3ZTY5E1FKg36pvXyxRmN3lopssEIvCDNJv+y+GWAYV4L7s3DVBSnZ1fdFyQz65dP90tddseUCJKyNv97+DHQboPbo/EO2+Lu/JNpDQ9kduqG3TAn60GpILljCqgo17ZJl/4/BZptng/y3nIJKAtlujm73z5Nbp2xZRs5tCjl3NBuXDq3T6Ptl2VzIElekx8QrzDoN/6o9/lKsLrb6kB2j3ETd2iqLOcLOGeBTYwolYrFfF4G1ATqzSMggsovt7f/P2DnQc5qjB6VUl7Cqan7z3QD/oh+oTRYt6z/qOgdhMrlZPul2hwIBRmnfPijcNk8Mxx/kldqsy/bifML6w//Ami5ITjZTru/flytalOd6NPaavV4ve6Puj9BNF/Zq3c8/D/Lf7l4qJjdQgAAAABJRU5ErkJggg==" 
-                            alt="Shenzhen University Logo" 
+                                        <img src="data:image/png;base64,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" 
+                                            alt="Shenzhen University Logo" 
                             class="w-20 h-20 object-contain">
                         <span class="font-semibold text-lg text-gray-700">Shenzhen University</span>
-                    </a>
+                        </a>
                     <a href="https://4dv.ai/" target="_blank" class="flex flex-col items-center space-y-2 hover:scale-105 transition-transform">
-                        <img src="data:image/jpeg;base64,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" 
-                            alt="4DV.ai Logo" 
+                                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhUSEhIVFRUVFxUVFxUVFRcVFRcVFRcXFxcVFRcYHSggGBolHRcVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OFw8PFy0dFR0tLS0tLS0rLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0rLS0tLS0tLSstLS0tLS0tLf/AABEIAOEA4QMBIgACEQEDEQH/xAAcAAABBAMBAAAAAAAAAAAAAAAAAQMEBQIGBwj/xABLEAACAgIAAwUDBQsICAcAAAABAgADBBEFEiEGBxMxQSJRgRQyNWFxCEJScnSCkZKzwdMWFyNVYnOToUNTVIOUpLTSFWOio7HR8P/EABoBAQADAQEBAAAAAAAAAAAAAAACAwQBBQb/xAApEQEAAgICAQEGBwAAAAAAAAAAAQIDEQQSITEFIjJRYdETM0GBkaHh/9oADAMBAAIRAxEAPwDn/drkcnE8Yk6DM6fr1uoH6SJ3fIM81cOyzTdVcP8ARWV2fqMG/dPSmUwPUdQdEH3g9RPlfb2PWfHk+ca/if8AVtPNZhBsaRbGjlzSJY8hx4YMsEd4w7Qd4w7z18VWDJBWaNM8xZ4yzz0cdWW0HDZG2sjLvG3smmuKJV9pg+bY09sjmyNPZLIwLa3ZXWStybI9bZIGS8vphaaWV+Y8o8ppaZbynvPWORHWr0MJuJCEwNLOs9Zd8OslEDLHCs1Kssbh2G7YNmxLSszXuF3S9pbpPKvGpWwkrM40pjonaT5ckbhFiTVVTZlATGLLYZ7MoRISWle3Gp3fsHxP5Rw6k+bVDwH+2vQXf2pyH4zhE3rum414WQ2M50mQBy78hcm+X9YFh9ZCzF7Y485ePNo9aefv/Xn9no451Ovm6PktINtkl5p0ZU3WTx+JO4hTmozeyMtZI72xlrZ7uGrzslEhrIy1kjtdG3tnp4qslqnmsjLvGmtjT2Tdjoqmp02Rl3jZsjLvNNaOxUtryBe8dsskG95dWjTjqhZTytc9ZLyXkIzzeZbzp6mKNQSLCEwrSSTjvqR5nUZyY8DZOF5GptGLZsTRsO3U2nhmRsTzeRT9VlZXimPKZFRpIQzPWfKTOG4kDNdJUWKIu5jDcvhnsziRNwndK3HZlW5UhlJDKQQR0II6gg+h3MYk0NrtHBeOLm4wt6eIuluUej6+cB+C3mPiPSRcmzRnM+A8ZsxLfEr6gjldD0Dp7j7j6g+h9/UHfjnV3ILajtT8Cp9VYehE+fycOePk938ufT6fT7LZnvH1Y23SO18jX3eciPkz1ePG2LJjT2vmBvlaciYHInr4qMlsaxN0bN0gm+IbpvpVVONMNsae2RWujT3TRWrsYz1tsg32xLLpDttnMuSKQ048Ru541BjEng5L97bbYjUFiRYSt0kUGEIEvHeX3Dcia3U0s8O2Z8tNwlEt2xrdiTK2lDw/IltW88y1dSsTtwmCNF3NGOVV4ZbibiQ3NdWaxYTHcJPStyKEIS1sEk8Pz3pbmQ+fRlPzWH1j98jRJy1YtGp9Bso4mtg2Ojeqn93vEi23ylEcF7evX/5ldMfSfd9CfKwbIiePK/xICyb8eaIVzRYeNDx5A54viTXXlVhD8JMa6NtdIpeIWnLcz5Oxjg69kZJibhMOTNa62I0SLCJKXSwhEgEIRYCqZMx3kKO1NI2jY2LAvmwY9uxNPxLZf4WRPPzY1kSvqLJJ3Kyt5OrfYlNJ1JaNwc3Dcx3Amb6SyXgsJjuEtVOTQhEljYWEIQEiwhAIRIsAhCEAhCEAiQiwCESEAiwiQFiRYQCKhmMWBMoeW2HdKKtpPxrJRkrtKJbVjW7k/Htmv4l0s6rJ59q6lNbhoEyPTbuO800YrKMlWW4TDmhNO1HVyyEIS5pEIQgEn8B4RbmZFeNSN2WNob8lHmzt/ZUbJ+yV89GdyfYr5Hj/ACu5dZGQo0GHWqnzVfqZujH80eYMCfid0HCFRVfGNjBQGc3XqXYDRYhbAoJPXQAE17vK7ueGYnDcnIx8bktrCFW8a9tE2Ip9lrCD0J8xOvTS++T6Gy/xa/21cCm7J92HCbsHEutxeay3HosdvHyBt3rVmOhYANknoBqWv80nBv8AY/8AmMn+LLzsJ9G4P5Ji/sUkntB2gxsGoXZVvh1lggblZvaIJA0gJ8lP6IGr3d0PByNDFZfrW+/f/qcj/Kaf2g7i9DnwcjmI0fByfJtHqPFrAI92uX4jznQuHd4nCrzy151OydAOTVs+4eIF3NoVgRsdQfWBwXszwzg/jjB4rww4eX0Ck5GT4Nu+g5W8U8uzsDqVJGg2+kc75O73EwsWvJwqTWFs5LR4llgK2D2WPiMdaZQOn+s/R1rth2Vx+JUGm9evU12ADnrY/fKf0bHkfWc64TkX3VZfZziJByBU3yW5j0uVRz1HZ+cVKqwPnpWB0UOw4VEi9fUaPqPcfcYQN57n+ydXEcxlyEL0U1l3AZkDOx5a1LKQw++bofvPgezfzScG/wBj/wCYyf4sq+4Lgvg8PbIYabKsLA60fCr2iA/EWMPx50bMyUqre2whUrVnZj5BVBLE/YAYHmDvY4bh4uecbCq8NKkQWe3Y+7X9s9bGPQKU8vXfw0yTOMcRbJvtyH+ddY9hG9652JCg+4AgD7JDgLCESBkpkml5EjiNOTGxc4t0uMe2a1RZLXFumPLROJX2PbJivKaqyT6rZnr7slo3CbzxZF8SLL+6ro5tCEJuSESLJ/AeD25mRXjUjdlrco35KPNnb+yo2T9kDc+5vsV8vyfHuXeNjsCwI6WW9ClfuIHRm+rlH309Kyr7M8CqwcavFpHs1jWz5ux6s7fWTszV+9/tj/4fh8lTayMjaV680X7+36tA6H9ph7jA3PAzq7k8SpuZeaxNjy5qnat9e/TKw366mqd8n0Nl/i1/tq433J/QuJ/v/wDqbo53yfQ2X+LX+2rgXHYT6NwfyTF/YpNM+6F+jK/yqr9nbNz7CfRuD+SYv7FJpn3Q30ZX+VVfs7YHnebn3e94eRwyxVLNbiE+3STvlBPV6d/NYdTy+Tdd6OiNMhA9o4eUltaW1sGR1Dqw8mVhsEfAznvfTwphRVxPH6ZGBYtgYDqaiw5lbXmAeVvs5/eY19z/AMTa3hzVMd/J7mRf7twtgHwZn+Gpv3H8IX4t9LeVtVlZ/OQjp9fWB5Y7fY6rmPbWCKspUzKt6+ZkLzsOn4L+Iv5so8PFe2xKqxt7HWtR72dgqj9JE2/jHDzbwPAyx1NFl+K50SeR7Gsr2fRVPMo/HEl9x/BvlHE0sYbTGRrj06c/zKx9u2LD8SB6N4Rw9MeirHT5tVaVr9iKFBP19Jpfffxn5PwuxFOnyWWga/BbbWfDkVl/OE3+eefuguM+LnV4yn2cavbf3l2mI/UFf6xgctixIQCEWEAgIS07M8Ctz8mvFp1z2E+0d8qKo2ztr0AHxOh6wIVTydj2To3ajuVsxsZr8fJNz1KXetq+TmVRtjXpj1AB9k737/fy6myV3rt2F/j3SdRbKLHtlhVbMd6Jwt/FhIPjRJXo8NNhCE9RWJ6J7j+xwxcYZtgBuykVl8jyUNplAPvbox/NHpPO09ddg/ozB/JMb9ikC8dtAn3deg2fgB5zzb244DxniOZZkvgXhT7FSEL7FKk8i/O8+pY/WxnpOEDUu6jhtuNwrGpvrNdieNzI3mOa+1hvX1EH4zPvR4fbkcLyaaENljisKi+Z1ahOvgCfhNqhA532d7S5mPiY+O3B81mpppqJHhaJrrVCRt/LYmo98Xa1crD+TWY92LkV3U2+FeFBeoraviIVJDAN0P1/HXcWYAEk6A6knyA95nnXvEJzcW7jD/Muyq8XEBHUYlIu2/vHiWAto9QQfSBzOJFmwdi+yGTxO8VUqQgI8W8j+jqX12fvn9yeZ+oAkB2T7nnBZMC21hoXXty/Wtaqm/1g4/NnSOL5QpoutY6WuuxyfcEUsT/lE4PwyvForx6V5a6lCKPXQ9SfUnzJ9STNK76uMmrB+SVe1fnOuPWg1zEEjn6H0O1T7bBAoOwXZ35X2YejW2u8d6/T+krsPh+Xpz1j/OTfufOD+HgPlEe1k2HR/wDKp2ig/n+L/lOgdmuEjExKMYHfg1ohI9WA9pvidn4ydi4yVoErUKq+SjyGzv8AfAyutVFLsdKoLEnyAA2SfhPHXaDirZeTdkt53WPZo+ik+yvwXlHwno7vp418m4XaoOnyCMdfss2bP/bFn6RPMMAj+FiWXWLVUjPY5CqijbMfcIzO3/c78ATkvz3G3L+BWSPmqoVrGX8Ysq7/ALB95gVfB+4nJdA2Rl10MevhpWbiv1M3Oo39mx9ZjfEO5HIptp5bhkUNbUlxRfCuStnVXdVJYHQJO99PPRG5vfeL3pV8NtGNVT49+gzgvyJWG6qGIBJYjrrp0IO5L7t+8eripeo1Gm+tecpzc6um9FkbQPQkbBHTmHU+gU/8xXDv9fmf4lP8GcY7BdpTw7MqyuXnUArYg0C1bjTcpPqOhH1rr1nrmeS+7Tg9OZxHGxr1LVWeLzAMVJ5abHHVeo9pRA6x2t75sNsSxMMWPdajIOZORa+YaLMT5kb6Ab2R7pwas6noLtV3VcLowsq+ulw9WPfYhN1hAdK2ZSQW0eoHSee4E2myWFNsp63kymyU3qlCz8T64SF4v/7rFlPR3anhCE2ICdB4V3w8Rx6KqETGKU1pUpauwty1qFHMRYAToD0nPoQOl/z4cT/Axf8ACs/iw/nw4n+Bif4Vn8Wc0hA9Z93XHbc7h9GVcEFlni8wQEL7F1lY0CSfJR6zLvB43bhcPvyqQhsqCFQ4LL7ViKdgEHyY+s1Tui7TYNPCcaq7MxqrF8fmSy+tHG8i1htWYEbBB+wiOd63abBu4VlV05uNZYy18qV31O7atQnSqxJ6An4QMcXC41xTFQZGRh0YuVUjsceu05BqtUMa/wCkPKpKtokE+frNl7QdiMXLw6sF/ErppNZQVMAw8NSigllbfRj9cgdjO1nD6+H4aPnYiOmLjqytkVKystSAqwLbBBBBBlz/ACz4b/WOH/xVP/dA1fh3cxwqo7ZLrvqttOviKwu/sM3vh+BVRWKqK0qrXyStQqjfU9B75UXduOGKNniGJ+bfWx/QrEzTu0Xfbg1AjER8l/Q6NVQ+1nHMfgvX3jzgdB49xmjDpfIyHCVoPP1J9FUffMfQTztj9u2yeOY+deoFa2rWlbdVqpfdYO/VhzlyfePQAa1ztX2ry+I2+Lk2b18ytdrVWD+Amz1/tHZPTZ6CUZED2xCaV2N7fYVuDjvkZuNXca1Fi2X1o/iJ7DEqzAjZUkfURLj+WfDP6xw/+Jp/7oHG/uheNeJl04in2aK+dtH/AEl2uhHvCKpH94fi52A7nhl4yZWXdZWLRzV11cobkPzXdnBHtDqAB5EdeuhzjtPxY5eXkZJJ/pbHYb8wm9Vr8ECj4TuPdn3l4JwqcfJuXHtx61q1Z7KOlYCq6N5fNA2D13v06wOWd5PYR+FWoPE8Wm3m8NyNMCuto4HTYBB2PPr0GjOp/c9cQV8C2nY56b2JHryWqrKx+0iwfmzR++ntxRnvVRinnqpLM1uiA9jDlATY2VA319SenQbOo9iu1d/DMkZFPtAjlsqJ0tifgk69kg9Q3ofeCQQ6B3z9gsx8x83Gpe+u5U51rHPZW6IteuQe0VKqp2N9ebeum7HuP7DZWPe+blVtSPDNddbjVjc5Ul2XzQALrRGyT6a67jwXvV4VkLs5IobXVLwayPzvmt8CZH4z3t8OqsqqptFzPbWjOuxTUjOoex7D0OlJOhvy66gb/PLXct9MYf8Av/8Aprp6B/l9wr+sMb/FX/7nnbunz6sfimLbfYtdaeNzO55VXePao2T5bJA+MD0h28+jM78kyf2LzyJPTnbLttw2zh+ZXXnY7O+NkIqrYpLM1TBVA9SSQJ5jgKDHqnjEUGcmBM8SEjc8SR6usYQhJuCEIQCEIQEhFhASGosIBCEIBCEICQizJU3AxENR9apmKZGbQhN4RuWLySV4UBVOd3O6NyROSSvDga5zud0XliakkpMSkl2d7I8I6UmBWd2ltjEi6hOukiw1CAQhCAQhCAQhCARIsIBCESAsIkWAkUCKokqiictbSNrREG6qpLrx5KoxpMTHmS+ZkyZ0BaJmKJYiiL4MpnKzzmVvgzFqpZNVG2qiMjsZVea5ia5OaqNlJOLpxkQikwZJNZI2ySyLrIuhFI2UkxkjTLLIstiyKVmBWSWSNlZZFlkWMaizPlhJbS2bhCE6kIQhAIQhAIkWJAIsIkBYCEzqWJ8OTOj2PVuXGLjRjBx/KX+Jizz+Rm087k59GqcaSVok2uiOrTPNtm28q2fav8GYmqWJqmLVzkZEYyq5qo01UsWrjL1ydciyuRXvXGWST3rjLpLq3aK3QWrjTpJrJGmWXVsurZBdI0yyY6xpkl1bL62QmSNsslMsaZZbFl1bGOWEc5YSe09oMIsSXLxCEIBCEIBCEIBCEIAok7ErkWpZccOp2RKct9QozX6wteG425sNGP0jHC8XpLmuqfPcjNuz5nlZ92RlqmXhyX4cQpMndj/EQzXG2STGSNsknFkouhMkYdJOZIyyS2tl9boDpI7pLB0kexZfWzRSyA6Rl1k11jLrNFbNNbITrGGWTXWMOsurZfWyIyxl1kphGXWX1lorYxyxI7yQlm1nZVamJmZEQzbMNbCEUxJB0RIsIBCEIBAQmdK7MSJOPXNj4PRvUpqK5tnAqPKeZy8mqvK52XrWWwYFGhJwSFCdI7yz5q99y+UvfcmisxKx8rMSJGJRiUdljTLJTCNOJZEp1siOsZZZLdYywl1ZX1shusjusmusj2LL6y0VsgusYdZNdZHsWaKy1UshusYcSXYIw6zRWWitkRhGXElOsYcS6stFZR9QjuoS3a3spIhiQnpS3sTEMISDpIsWE5LpDCLCBjJGL5whOW+GXFvR++bbwHyESE8Xm/A8P2j8MtrrmYiwnz0+r5eWLTFoQiHYNtMGhCThODLRl4Ql0LqmLJGshCX0aKGXkV4QmirVQxZGbPOEJoq0URrIy8ITRDRU3CEJ1c//2Q==" 
+                                        alt="4DV.ai Logo" 
                             class="w-20 h-20 object-contain">
                         <span class="font-semibold text-lg text-gray-700">4DV.ai</span>
+                        </a>
+
+                        <div class="border-t pt-6">
+                            <p class="text-gray-600 text-center">
+                                We also thank 
+                                <a href="https://yuanhongyu.xyz" class="text-blue-600 underline hover:text-blue-800" target="_blank" rel="noopener">
+                                Yuanhong Yu
+                                </a>
+                                for his valuable contribution to the website.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section id="contact" class="text-center mb-12">
+                <h2 class="section-heading inline-block">Contact</h2>
+                <div class="glass-card rounded-2xl p-8 max-w-2xl mx-auto mt-8">
+                    <p class="text-lg text-gray-700">
+                        For any questions, please contact us at
+                    </p>
+                    <a href="mailto:siggraphasiavvc@gmail.com" class="inline-flex items-center mt-4 text-purple-600 hover:text-purple-800 font-medium text-lg">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        siggraphasiavvc@gmail.com
                     </a>
                 </div>
-                <p class="text-gray-600 mt-8">
-                    We also thank 
-                    <a href="https://yuanhongyu.xyz" class="text-blue-600 underline hover:text-blue-800" target="_blank" rel="noopener">
-                      Yuanhong Yu
-                    </a>
-                    for his valuable contribution to the website.
-                  </p>
-            </div>
-        </section>
+            </section>
 
-        <!-- Contact -->
-        <section id="contact" class="text-center mb-12">
-            <h2>Contact</h2>
-            <div class="academic-card rounded-2xl p-8 hover-lift">
-                <p class="text-lg text-gray-700">To contact the organizers please use <a href="mailto:siggraphasiavvc@gmail.com" class="siggraph-blue hover:underline">siggraphasiavvc@gmail.com</a></p>
-            </div>
-        </section>
-
+        </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white/95 backdrop-blur-md mt-12 py-8 border-t border-gray-200">
-        <div class="container mx-auto px-6 text-center">
-            <div class="flex justify-center items-center space-x-4 mb-4">
-                <span class="text-xl font-bold siggraph-dark">SIGGRAPH Asia 2025 Workshop</span>
+    <footer class="bg-white border-t mt-20">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-gray-600 font-medium">SIGGRAPH Asia 2025 Workshop</p>
+                    <p class="text-gray-500 text-sm">Hong Kong, China • December 15-18, 2025</p>
+                </div>
+                <p class="text-gray-500 text-sm">
+                    © 2025 SIGGRAPH Asia Workshop Organizers. All rights reserved.
+                </p>
             </div>
-            <p class="text-gray-500">&copy; 2025 SIGGRAPH Asia Workshop Organizers. All rights reserved.</p>
         </div>
     </footer>
 
@@ -812,7 +1125,21 @@ python3 render.py --model [YOUR_MODEL] --intri novel_intri.yml --extri novel_ext
             });
         }
 
-        // Scroll animation effects
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -827,10 +1154,11 @@ python3 render.py --model [YOUR_MODEL] --intri novel_intri.yml --extri novel_ext
             });
         }, observerOptions);
 
+        // Apply observer to sections
         document.querySelectorAll('section').forEach(section => {
             section.style.opacity = '0';
             section.style.transform = 'translateY(20px)';
-            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(section);
         });
     </script>
